@@ -23,5 +23,16 @@ dependencies = [
     "tqdm",
     "click",
     "rich",
-    "PyGithub"
+    "PyGithub",
+    "ruff",
+    "openai"
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = ["E", "F", "B", "I", "N", "UP", "PL", "RUF"]
+ignore = []
+
+[tool.ruff.isort]
+known-first-party = ["g060525_e_pt"]
