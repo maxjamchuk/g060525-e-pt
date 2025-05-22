@@ -7,6 +7,7 @@ from functools import partial
 from typing import Dict, List, Tuple
 from pptx import Presentation
 
+
 def get_presentation_toc(file_path: str) -> Tuple[str, List[str]]:
     """Получает оглавление презентации."""
     try:
