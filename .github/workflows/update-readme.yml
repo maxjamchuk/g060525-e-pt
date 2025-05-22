@@ -99,7 +99,7 @@ jobs:
           except:
             print("0|Unknown")
           EOF
-}
+          }
 
           function create_link() {
             local path=$1
