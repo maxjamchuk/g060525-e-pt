@@ -244,10 +244,6 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
                 max_length=MAX_SEQUENCE_LENGTH
             )
             
-            if torch.cuda.is_available():
-                inputs = inputs.to("cuda")
-                model = model.to("cuda")
-            
             outputs = model.generate(
                 **inputs,
                 max_new_tokens=500,
@@ -377,7 +373,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         trust_remote_code=True,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,  # Используем float32 для CPU
         low_cpu_mem_usage=True,
         cache_dir=str(MODEL_CACHE_DIR)
     ).eval()

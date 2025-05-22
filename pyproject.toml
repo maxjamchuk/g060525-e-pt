@@ -14,8 +14,6 @@ dependencies = [
     "python-dotenv",
     "PyGithub",
     "transformers",
-    "torch",
-    "accelerate",
     "ruff",
     "pylint"
 ]
