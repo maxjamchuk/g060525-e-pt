@@ -169,7 +169,11 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
 
 Дай подробные рекомендации по улучшению кода. [/INST]"""
 
-        inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        inputs = tokenizer(prompt, return_tensors="pt")
+        if torch.cuda.is_available():
+            inputs = inputs.to("cuda")
+            model = model.to("cuda")
+        
         outputs = model.generate(
             **inputs,
             max_new_tokens=500,
@@ -281,7 +285,6 @@ def main():
     
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
-        device_map="auto",
         trust_remote_code=True,
         torch_dtype=torch.float16,
         low_cpu_mem_usage=True,
