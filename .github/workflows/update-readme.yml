@@ -36,42 +36,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          function get_presentation_toc() {
-          local file=$1
-          python3 <<EOF
-from pptx import Presentation
-try:
-    prs = Presentation("$file")
-    print("## " + "$file".split("/")[-1].replace(".pptx", ""))
-    print("")
-    for i, slide in enumerate(prs.slides, 1):
-        title = ""
-        for shape in slide.shapes:
-            if hasattr(shape, "text"):
-                title = shape.text.strip()
-                if title:
-                    break
-        if not title:
-            title = f"Слайд {i}"
-        print(f"- {title}")
-    print("")
-except Exception as e:
-    print(f"Ошибка при обработке презентации: {str(e)}")
-EOF
-          }
-
-          function create_presentations_md() {
-            local dir=$1
-            local md_file="$dir/presentations.md"
-
-            echo "# Презентации в директории $(basename "$dir")" > "$md_file"
-            echo "" >> "$md_file"
-
-            find "$dir" -maxdepth 1 -name "*.pptx" | sort | while IFS= read -r file; do
-              get_presentation_toc "$file" >> "$md_file"
-            done
-          }
-
+          # Функция для создания прогресс-бара
           function create_progress_bar() {
             local current=$1
             local total=$2
@@ -86,37 +51,25 @@ EOF
             echo "+ $bar ($current/$total) - $percentage%"
             echo "\`\`\`"
           }
-                                                
-          function get_presentation_metadata() {
-          local file=$1
-          python3 <<EOF
-from pptx import Presentation
-try:
-    prs = Presentation("$file")
-    slides = len(prs.slides)
-    date = prs.core_properties.created.strftime("%Y-%m-%d") if prs.core_properties.created else "Unknown"
-    print(f"{slides}|{date}")
-except:
-    print("0|Unknown")
-          EOF
-          }
 
+          # Функция для создания ссылок на файлы
           function create_link() {
             local path=$1
             local title=$(basename "$path" | sed 's/\.pptx$//' | sed 's/-/ /g')
             local depth=$2
             local indent=$(printf '%*s' "$depth" '')
-
-            IFS='|' read -r slides date <<< "$(get_presentation_metadata "$path")"
-
+            
+            # Получаем метаданные из вывода Python скрипта
+            IFS='|' read -r _ slides date <<< "$(python3 .github/scripts/process_presentations.py "$(dirname "$path")" | grep "^$title|")"
+            
             local emoji="📊"
             local type="Лекция"
             [[ "$title" =~ [Пп]рактик ]] && { emoji="💻"; type="Практика"; }
             [[ "$title" =~ [Дд]ополнительн ]] && { emoji="📚"; type="Дополнительно"; }
-
+            
             local toc_dir=$(dirname "$path")
             [[ "$toc_dir" == "." ]] && toc_dir="."
-
+            
             echo "${indent}- [ ] ${emoji} [${title}](${path})"
             echo "${indent}  - Тип: ${type}"
             echo "${indent}  - Слайдов: ${slides}"
@@ -124,11 +77,13 @@ except:
             echo "${indent}  - [Оглавление](${toc_dir}/presentations.md#$(basename "$path" | sed 's/\.pptx$//' | sed 's/[^a-zA-Z0-9]/-/g'))"
           }
 
+          # Функция для проверки, является ли директория модулем
           function is_module() {
             local dir=$1
             [[ "$(basename "$dir")" =~ ^[0-9]+-.*$ ]] || [[ "$(basename "$dir")" =~ ^Модуль\ [0-9]+.*$ ]]
           }
 
+          # Функция для получения номера модуля
           function get_module_number() {
             local dir=$1
             local name=$(basename "$dir")
@@ -137,31 +92,36 @@ except:
             echo "999"
           }
 
+          # Рекурсивный обход директорий
           function scan_directory() {
             local dir=$1
             local depth=$2
             local is_module_dir=$3
             local module_total=0
             local module_current=0
-
+            
             if [ "$is_module_dir" = "true" ]; then
               module_total=$(find "$dir" -name "*.pptx" | wc -l)
             fi
-
-            find "$dir" -maxdepth 1 -name "*.pptx" | sort | while IFS= read -r file; do
-              create_link "$file" "$depth" >> temp_toc.md
-              [ "$is_module_dir" = "true" ] && ((module_current++))
-            done
-
-            if find "$dir" -maxdepth 1 -name "*.pptx" | grep -q .; then
-              create_presentations_md "$dir"
+            
+            # Обрабатываем презентации в текущей директории
+            if [ -n "$(find "$dir" -maxdepth 1 -name "*.pptx")" ]; then
+              # Запускаем параллельную обработку
+              python3 .github/scripts/process_presentations.py "$dir"
+              
+              # Создаем ссылки на файлы
+              find "$dir" -maxdepth 1 -name "*.pptx" | sort | while IFS= read -r file; do
+                create_link "$file" "$depth" >> temp_toc.md
+                [ "$is_module_dir" = "true" ] && ((module_current++))
+              done
             fi
-
+            
+            # Обрабатываем поддиректории
             find "$dir" -maxdepth 1 -type d | sort | while IFS= read -r subdir; do
               [ "$subdir" = "$dir" ] && continue
               base=$(basename "$subdir")
               [[ "$base" == ".git" || "$base" == ".github" ]] && continue
-
+              
               if [ "$is_module_dir" = "true" ]; then
                 if find "$subdir" -name "*.pptx" | grep -q .; then
                   echo "" >> temp_toc.md
@@ -178,7 +138,7 @@ except:
                 fi
               fi
             done
-
+            
             if [ "$is_module_dir" = "true" ] && [ "$module_total" -gt 0 ]; then
               echo "" >> temp_toc.md
               echo "#### Прогресс модуля" >> temp_toc.md
@@ -187,6 +147,7 @@ except:
             fi
           }
 
+          # Начинаем сканирование с корневой директории
           scan_directory "." 0 "false"
 
       - name: Update README
