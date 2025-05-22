@@ -3,6 +3,7 @@
 import os
 import sys
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import List, Dict, Tuple
 import torch
@@ -27,10 +28,74 @@ def run_ruff_check(file_path: str) -> Tuple[str, bool]:
     except subprocess.CalledProcessError as e:
         return f"Ошибка при запуске ruff: {e}", True
 
+def run_pylint_check(file_path: str) -> Tuple[str, bool]:
+    """Запускает pylint для проверки файла."""
+    try:
+        result = subprocess.run(
+            ["pylint", file_path],
+            capture_output=True,
+            text=True
+        )
+        has_issues = bool(result.stdout.strip())
+        return result.stdout, has_issues
+    except subprocess.CalledProcessError as e:
+        return f"Ошибка при запуске pylint: {e}", True
+
+def check_syntax(file_path: str) -> Tuple[str, bool]:
+    """Проверяет синтаксис Python файла."""
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "py_compile", file_path],
+            capture_output=True,
+            text=True
+        )
+        has_issues = bool(result.stderr.strip())
+        return result.stderr, has_issues
+    except subprocess.CalledProcessError as e:
+        return f"Ошибка при проверке синтаксиса: {e}", True
+
+def try_run_code(file_path: str) -> Tuple[str, bool]:
+    """Пытается запустить код в изолированной среде."""
+    try:
+        # Создаем временный файл для запуска
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+            temp_file.write(f"""
+import sys
+import traceback
+
+try:
+    with open('{file_path}', 'r') as f:
+        code = f.read()
+    exec(code)
+    print("Код выполнен успешно")
+except Exception as e:
+    print(f"Ошибка при выполнении: {{e}}")
+    traceback.print_exc()
+""")
+            temp_path = temp_file.name
+
+        # Запускаем код в изолированной среде
+        result = subprocess.run(
+            [sys.executable, temp_path],
+            capture_output=True,
+            text=True,
+            timeout=5  # Ограничиваем время выполнения
+        )
+        
+        # Удаляем временный файл
+        os.unlink(temp_path)
+        
+        has_issues = bool(result.stderr.strip())
+        return result.stderr or result.stdout, has_issues
+    except subprocess.TimeoutExpired:
+        return "Ошибка: Превышено время выполнения (5 секунд)", True
+    except Exception as e:
+        return f"Ошибка при запуске кода: {e}", True
+
 def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tuple[str, bool]:
     """Получает рекомендации от модели для улучшения кода."""
     try:
-        prompt = f"""<s>[INST] Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
+        prompt = f"""Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
 Фокусируйся на: читаемости, производительности, безопасности и лучших практиках.
 
 Код для анализа:
@@ -38,7 +103,7 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
 {content}
 ```
 
-Дай подробные рекомендации по улучшению кода. [/INST]"""
+Дай подробные рекомендации по улучшению кода."""
 
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
         outputs = model.generate(
@@ -51,19 +116,34 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         
         # Извлекаем только рекомендации (после промпта)
-        recommendations = response.split("[/INST]")[-1].strip()
+        recommendations = response.split("Дай подробные рекомендации по улучшению кода.")[-1].strip()
         has_recommendations = bool(recommendations.strip())
         return recommendations, has_recommendations
     except Exception as e:
         return f"Ошибка при получении AI рекомендаций: {e}", True
 
-def create_review_comment(pr: PullRequest, file_path: str, ruff_output: str, ai_recommendations: str):
+def create_review_comment(pr: PullRequest, file_path: str, ruff_output: str, pylint_output: str, syntax_output: str, run_output: str, ai_recommendations: str):
     """Создает комментарий к PR с результатами проверки."""
     comment = f"""## Анализ файла: {file_path}
+
+### Результаты проверки синтаксиса:
+```
+{syntax_output}
+```
 
 ### Результаты проверки ruff:
 ```
 {ruff_output}
+```
+
+### Результаты проверки pylint:
+```
+{pylint_output}
+```
+
+### Результаты запуска кода:
+```
+{run_output}
 ```
 
 ### Рекомендации по улучшению:
@@ -93,16 +173,11 @@ def notify_author(pr: PullRequest, files_with_issues: List[str]):
     pr.create_issue_comment(notification)
 
 def main():
-    # Получаем токены из переменных окружения
+    # Получаем токен из переменных окружения
     github_token = os.getenv("GITHUB_TOKEN")
-    hf_token = os.getenv("HF_TOKEN")
     
     if not github_token:
         print("Ошибка: Не найден GitHub токен")
-        sys.exit(1)
-    
-    if not hf_token:
-        print("Ошибка: Не найден Hugging Face токен")
         sys.exit(1)
     
     # Инициализируем GitHub клиент
@@ -129,12 +204,11 @@ def main():
     
     # Загружаем модель
     print("Загрузка модели...")
-    model_name = "bigcode/starcoder2-3b"  # Меняем на более доступную модель
+    model_name = "microsoft/phi-2"  # Используем phi-2, которая не требует токена
     
     tokenizer = AutoTokenizer.from_pretrained(
         model_name,
-        trust_remote_code=True,
-        token=hf_token
+        trust_remote_code=True
     )
     
     model = AutoModelForCausalLM.from_pretrained(
@@ -142,7 +216,6 @@ def main():
         device_map="auto",
         trust_remote_code=True,
         torch_dtype=torch.float16,
-        token=hf_token,
         low_cpu_mem_usage=True
     ).eval()
     
@@ -162,14 +235,17 @@ def main():
         
         # Запускаем проверки
         ruff_output, has_ruff_issues = run_ruff_check(file_path)
+        pylint_output, has_pylint_issues = run_pylint_check(file_path)
+        syntax_output, has_syntax_issues = check_syntax(file_path)
+        run_output, has_run_issues = try_run_code(file_path)
         ai_recommendations, has_ai_recommendations = get_ai_recommendations(file_path, file_content, model, tokenizer)
         
         # Если есть проблемы, добавляем файл в список
-        if has_ruff_issues or has_ai_recommendations:
+        if any([has_ruff_issues, has_pylint_issues, has_syntax_issues, has_run_issues, has_ai_recommendations]):
             files_with_issues.append(file_path)
         
         # Создаем комментарий
-        create_review_comment(pr, file_path, ruff_output, ai_recommendations)
+        create_review_comment(pr, file_path, ruff_output, pylint_output, syntax_output, run_output, ai_recommendations)
     
     # Отправляем уведомление автору, если есть проблемы
     if files_with_issues:
