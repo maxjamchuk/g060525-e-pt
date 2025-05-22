@@ -23,6 +23,9 @@ DEPS_CACHE_DIR.mkdir(exist_ok=True)
 MODEL_CACHE_DIR = CACHE_DIR / "model"
 MODEL_CACHE_DIR.mkdir(exist_ok=True)
 
+# Максимальная длина последовательности для модели
+MAX_SEQUENCE_LENGTH = 2048
+
 def get_file_hash(file_path: str, content: str) -> str:
     """Вычисляет хеш файла на основе пути и содержимого."""
     return hashlib.md5(f"{file_path}:{content}".encode()).hexdigest()
@@ -156,35 +159,123 @@ except Exception as e:
     except Exception as e:
         return f"Ошибка при запуске кода: {e}", True
 
+def truncate_code(content: str, max_length: int = 1500) -> str:
+    """Обрезает код до максимальной длины, сохраняя структуру."""
+    if len(content) <= max_length:
+        return content
+    
+    # Разбиваем код на строки
+    lines = content.split('\n')
+    result = []
+    current_length = 0
+    
+    # Добавляем строки, пока не достигнем максимальной длины
+    for line in lines:
+        if current_length + len(line) + 1 > max_length:
+            break
+        result.append(line)
+        current_length += len(line) + 1
+    
+    # Добавляем сообщение о том, что код был обрезан
+    result.append(f"\n# ... (код обрезан, всего {len(lines)} строк) ...")
+    
+    return '\n'.join(result)
+
+def split_code_into_parts(content: str, max_length: int = 1500) -> List[str]:
+    """Разбивает код на логические части для анализа."""
+    if len(content) <= max_length:
+        return [content]
+    
+    parts = []
+    current_part = []
+    current_length = 0
+    
+    # Разбиваем код на строки
+    lines = content.split('\n')
+    
+    for line in lines:
+        # Если текущая часть пуста или это начало класса/функции
+        if not current_part or line.strip().startswith(('def ', 'class ')):
+            # Если текущая часть не пуста, сохраняем её
+            if current_part:
+                parts.append('\n'.join(current_part))
+                current_part = []
+                current_length = 0
+        
+        # Добавляем строку в текущую часть
+        current_part.append(line)
+        current_length += len(line) + 1
+        
+        # Если текущая часть превысила максимальную длину, сохраняем её
+        if current_length > max_length:
+            parts.append('\n'.join(current_part))
+            current_part = []
+            current_length = 0
+    
+    # Добавляем последнюю часть, если она не пуста
+    if current_part:
+        parts.append('\n'.join(current_part))
+    
+    return parts
+
 def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tuple[str, bool]:
     """Получает рекомендации от модели для улучшения кода."""
     try:
-        prompt = f"""<s>[INST] Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
+        # Разбиваем код на части
+        code_parts = split_code_into_parts(content)
+        all_recommendations = []
+        
+        for i, part in enumerate(code_parts, 1):
+            part_prompt = f"""<s>[INST] Ты - опытный Python разработчик. Проанализируй часть кода и дай рекомендации по улучшению. 
 Фокусируйся на: читаемости, производительности, безопасности и лучших практиках.
 
-Код для анализа:
+Часть {i} из {len(code_parts)}:
 ```python
-{content}
+{part}
 ```
 
-Дай подробные рекомендации по улучшению кода. [/INST]"""
+Дай подробные рекомендации по улучшению этой части кода. [/INST]"""
 
-        inputs = tokenizer(prompt, return_tensors="pt")
-        if torch.cuda.is_available():
-            inputs = inputs.to("cuda")
-            model = model.to("cuda")
+            # Токенизируем промпт с учетом максимальной длины
+            inputs = tokenizer(
+                part_prompt,
+                return_tensors="pt",
+                truncation=True,
+                max_length=MAX_SEQUENCE_LENGTH
+            )
+            
+            if torch.cuda.is_available():
+                inputs = inputs.to("cuda")
+                model = model.to("cuda")
+            
+            outputs = model.generate(
+                **inputs,
+                max_new_tokens=500,
+                temperature=0.7,
+                top_p=0.9,
+                do_sample=True
+            )
+            response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+            
+            # Извлекаем только рекомендации (после промпта)
+            part_recommendations = response.split("[/INST]")[-1].strip()
+            if part_recommendations:
+                all_recommendations.append(f"### Анализ части {i}:\n{part_recommendations}")
         
-        outputs = model.generate(
-            **inputs,
-            max_new_tokens=500,
-            temperature=0.7,
-            top_p=0.9,
-            do_sample=True
-        )
-        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        # Объединяем все рекомендации
+        recommendations = "\n\n".join(all_recommendations)
         
-        # Извлекаем только рекомендации (после промпта)
-        recommendations = response.split("[/INST]")[-1].strip()
+        # Добавляем общую информацию
+        if len(code_parts) > 1:
+            recommendations = f"""⚠️ Файл был разделен на {len(code_parts)} частей для анализа.
+
+{recommendations}
+
+### Общие рекомендации:
+- Рассмотрите возможность разделения кода на модули, если файл слишком большой
+- Убедитесь, что каждая часть кода следует единому стилю и конвенциям
+- Проверьте согласованность именования между частями кода"""
+        
         has_recommendations = bool(recommendations.strip())
         return recommendations, has_recommendations
     except Exception as e:
