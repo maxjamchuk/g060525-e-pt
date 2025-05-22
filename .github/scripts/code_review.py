@@ -28,9 +28,9 @@ def run_ruff_check(file_path: str) -> Tuple[str, bool]:
         return f"Ошибка при запуске ruff: {e}", True
 
 def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tuple[str, bool]:
-    """Получает рекомендации от Qwen для улучшения кода."""
+    """Получает рекомендации от CodeLlama для улучшения кода."""
     try:
-        prompt = f"""Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
+        prompt = f"""<s>[INST] Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
 Фокусируйся на: читаемости, производительности, безопасности и лучших практиках.
 
 Код для анализа:
@@ -38,7 +38,7 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
 {content}
 ```
 
-Дай подробные рекомендации по улучшению кода:"""
+Дай подробные рекомендации по улучшению кода. [/INST]"""
 
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
         outputs = model.generate(
@@ -51,7 +51,7 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tu
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         
         # Извлекаем только рекомендации (после промпта)
-        recommendations = response.split("Дай подробные рекомендации по улучшению кода:")[-1].strip()
+        recommendations = response.split("[/INST]")[-1].strip()
         has_recommendations = bool(recommendations.strip())
         return recommendations, has_recommendations
     except Exception as e:
@@ -122,9 +122,9 @@ def main():
     repo = g.get_repo(repo_name)
     pr = repo.get_pull(pr_number)
     
-    # Загружаем модель Qwen
-    print("Загрузка модели Qwen...")
-    model_name = "Qwen/Qwen2.5-32B-Instruct"
+    # Загружаем модель CodeLlama
+    print("Загрузка модели CodeLlama...")
+    model_name = "codellama/CodeLlama-7b-Instruct-hf"
     
     # Используем кэшированные пути
     cache_dir = os.getenv("TRANSFORMERS_CACHE", "~/.cache/huggingface/hub")
@@ -142,7 +142,8 @@ def main():
         model_name,
         device_map="auto",
         trust_remote_code=True,
-        cache_dir=cache_dir
+        cache_dir=cache_dir,
+        torch_dtype=torch.float16  # Используем float16 для экономии памяти
     ).eval()
     
     # Получаем измененные файлы
