@@ -4,38 +4,228 @@ version = "0.1.0"
 description = "Система мониторинга GitHub Actions"
 requires-python = ">=3.8"
 dependencies = [
-    "python-pptx",
     "flask",
-    "jinja2",
     "pandas",
     "matplotlib",
     "seaborn",
+    "plotly",
+    "dash",
     "requests",
-    "prometheus-client",
-    "datadog",
-    "grafana-api",
-    "pdfkit",
-    "weasyprint",
-    "python-json-logger",
-    "loguru",
-    "cryptography",
     "python-dotenv",
-    "tqdm",
-    "click",
-    "rich",
     "PyGithub",
-    "ruff",
     "transformers",
     "torch",
-    "accelerate",
-    "sentencepiece"
+    "ruff",
+    "pylint"
 ]
 
-[tool.ruff]
-line-length = 88
-target-version = "py38"
-select = ["E", "F", "B", "I", "N", "UP", "PL", "RUF"]
-ignore = []
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.ruff.isort]
-known-first-party = ["g060525_e_pt"]
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.pylint.messages_control]
+disable = [
+    "C0111",  # missing-docstring
+    "C0103",  # invalid-name
+    "C0301",  # line-too-long
+    "C0330",  # bad-continuation
+    "C0326",  # bad-whitespace
+    "W0311",  # bad-indentation
+    "W0603",  # global-statement
+    "W0621",  # redefined-outer-name
+    "W0703",  # broad-except
+    "R0903",  # too-few-public-methods
+    "R0913",  # too-many-arguments
+    "R0914",  # too-many-locals
+    "R0915",  # too-many-statements
+]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.basic]
+good-names = ["i", "j", "k", "ex", "Run", "id", "fp", "fd", "df"]
+
+[tool.pylint.similarities]
+min-similarity-lines = 4
+ignore-comments = true
+ignore-docstrings = true
+ignore-imports = true
+
+[tool.pylint.typecheck]
+generated-members = ["pandas.*", "numpy.*", "torch.*"]
+
+[tool.pylint.variables]
+init-import = false
+dummy-variables-rgx = "^(_+|dummy|unused|.*_unused)$"
+
+[tool.pylint.classes]
+defining-attr-methods = ["__init__", "__new__", "setUp"]
+valid-classmethod-first-arg = ["cls"]
+valid-metaclass-classmethod-first-arg = ["mcs"]
+
+[tool.pylint.design]
+max-args = 10
+max-attributes = 15
+max-public-methods = 20
+max-locals = 25
+max-statements = 50
+max-parents = 7
+max-branches = 15
+max-returns = 6
+max-bool-expr = 5
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = ["Exception", "BaseException"]
+
+[tool.pylint.imports]
+deprecated-modules = ["regsub", "TERMIOS", "Bastion", "rexec"]
+import-graph = ["./import_graph.dot"]
+ext-import-graph = ["./ext_import_graph.dot"]
+int-import-graph = ["./int_import_graph.dot"]
+
+[tool.pylint.miscellaneous]
+notes = ["FIXME", "TODO", "XXX", "HACK"]
+
+[tool.pylint.reports]
+output-format = "text"
+files-output = false
+reports = ["y", "n", "n", "n", "n", "n", "n"]
+reports-output = "reports"
+
+[tool.pylint.string]
+check-str-concat-over-line-jumps = false
+
+[tool.pylint.similarities]
+min-similarity-lines = 4
+ignore-comments = true
+ignore-docstrings = true
+ignore-imports = true
+
+[tool.pylint.spelling]
+spelling-dict = "en_US"
+spelling-ignore-words = []
+spelling-ignore-identifiers = false
+spelling-ignore-comments = false
+spelling-ignore-docstrings = false
+spelling-ignore-inline-docstrings = false
+spelling-ignore-module-names = false
+spelling-ignore-names = []
+spelling-ignore-patterns = []
+spelling-store-unknown-words = false
+
+[tool.pylint.format]
+max-line-length = 100
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$"
+single-line-if-stmt = false
+no-space-check = []
+max-module-lines = 1000
+indent-string = "    "
+indent-after-paren = 4
+expected-line-ending-format = ""
+
+[tool.pylint.basic]
+good-names = ["i", "j", "k", "ex", "Run", "id", "fp", "fd", "df"]
+bad-names = ["foo", "bar", "baz", "toto", "tutu", "tata"]
+name-group = []
+include-naming-hint = false
+function-rgx = "[a-z_][a-z0-9_]{2,30}$"
+variable-rgx = "[a-z_][a-z0-9_]{2,30}$"
+const-rgx = "(([A-Z_][A-Z0-9_]*)|(__.*__))$"
+attr-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-rgx = "[a-z_][a-z0-9_]{2,30}$"
+class-attribute-rgx = "([A-Za-z_][A-Za-z0-9_]{2,30}|(__.*__))$"
+inlinevar-rgx = "[A-Za-z_][A-Za-z0-9_]*$"
+class-rgx = "[A-Z_][a-zA-Z0-9]+$"
+module-rgx = "(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$"
+method-rgx = "[a-z_][a-z0-9_]{2,30}$"
+no-docstring-rgx = "__.*__"
+docstring-min-length = -1
+
+[tool.pylint.classes]
+defining-attr-methods = ["__init__", "__new__", "setUp"]
+valid-classmethod-first-arg = ["cls"]
+valid-metaclass-classmethod-first-arg = ["mcs"]
+exclude-protected = ["_asdict", "_fields", "_replace", "_source", "_make"]
+
+[tool.pylint.design]
+max-args = 10
+max-attributes = 15
+max-public-methods = 20
+max-locals = 25
+max-statements = 50
+max-parents = 7
+max-branches = 15
+max-returns = 6
+max-bool-expr = 5
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = ["Exception", "BaseException"]
+
+[tool.pylint.imports]
+deprecated-modules = ["regsub", "TERMIOS", "Bastion", "rexec"]
+import-graph = ["./import_graph.dot"]
+ext-import-graph = ["./ext_import_graph.dot"]
+int-import-graph = ["./int_import_graph.dot"]
+
+[tool.pylint.miscellaneous]
+notes = ["FIXME", "TODO", "XXX", "HACK"]
+
+[tool.pylint.reports]
+output-format = "text"
+files-output = false
+reports = ["y", "n", "n", "n", "n", "n", "n"]
+reports-output = "reports"
+
+[tool.pylint.string]
+check-str-concat-over-line-jumps = false
+
+[tool.pylint.similarities]
+min-similarity-lines = 4
+ignore-comments = true
+ignore-docstrings = true
+ignore-imports = true
+
+[tool.pylint.spelling]
+spelling-dict = "en_US"
+spelling-ignore-words = []
+spelling-ignore-identifiers = false
+spelling-ignore-comments = false
+spelling-ignore-docstrings = false
+spelling-ignore-inline-docstrings = false
+spelling-ignore-module-names = false
+spelling-ignore-names = []
+spelling-ignore-patterns = []
+spelling-store-unknown-words = false
+
+[tool.pylint.format]
+max-line-length = 100
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$"
+single-line-if-stmt = false
+no-space-check = []
+max-module-lines = 1000
+indent-string = "    "
+indent-after-paren = 4
+expected-line-ending-format = ""
+
+[tool.pylint.basic]
+good-names = ["i", "j", "k", "ex", "Run", "id", "fp", "fd", "df"]
+bad-names = ["foo", "bar", "baz", "toto", "tutu", "tata"]
+name-group = []
+include-naming-hint = false
+function-rgx = "[a-z_][a-z0-9_]{2,30}$"
+variable-rgx = "[a-z_][a-z0-9_]{2,30}$"
+const-rgx = "(([A-Z_][A-Z0-9_]*)|(__.*__))$"
+attr-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-rgx = "[a-z_][a-z0-9_]{2,30}$"
+class-attribute-rgx = "([A-Za-z_][A-Za-z0-9_]{2,30}|(__.*__))$"
+inlinevar-rgx = "[A-Za-z_][A-Za-z0-9_]*$"
+class-rgx = "[A-Z_][a-zA-Z0-9]+$"
+module-rgx = "(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$"
+method-rgx = "[a-z_][a-z0-9_]{2,30}$"
+no-docstring-rgx = "__.*__"
+docstring-min-length = -1
