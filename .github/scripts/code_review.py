@@ -28,7 +28,7 @@ def run_ruff_check(file_path: str) -> Tuple[str, bool]:
         return f"Ошибка при запуске ruff: {e}", True
 
 def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tuple[str, bool]:
-    """Получает рекомендации от CodeLlama для улучшения кода."""
+    """Получает рекомендации от модели для улучшения кода."""
     try:
         prompt = f"""<s>[INST] Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
 Фокусируйся на: читаемости, производительности, безопасности и лучших практиках.
@@ -93,11 +93,16 @@ def notify_author(pr: PullRequest, files_with_issues: List[str]):
     pr.create_issue_comment(notification)
 
 def main():
-    # Получаем токен из переменных окружения
+    # Получаем токены из переменных окружения
     github_token = os.getenv("GITHUB_TOKEN")
+    hf_token = os.getenv("HF_TOKEN")
     
     if not github_token:
         print("Ошибка: Не найден GitHub токен")
+        sys.exit(1)
+    
+    if not hf_token:
+        print("Ошибка: Не найден Hugging Face токен")
         sys.exit(1)
     
     # Инициализируем GitHub клиент
@@ -122,43 +127,23 @@ def main():
     repo = g.get_repo(repo_name)
     pr = repo.get_pull(pr_number)
     
-    # Загружаем модель CodeLlama
-    print("Загрузка модели CodeLlama...")
-    model_name = "codellama/CodeLlama-3b-Instruct-hf"
-    
-    # Используем кэшированные пути
-    cache_dir = os.getenv("TRANSFORMERS_CACHE", "~/.cache/huggingface/hub")
-    torch_cache_dir = os.getenv("TORCH_HOME", "~/.cache/torch")
-    
-    print(f"Используем кэш моделей: {cache_dir}")
-    print(f"Используем кэш PyTorch: {torch_cache_dir}")
-    
-    # Создаем директории кэша, если они не существуют
-    os.makedirs(cache_dir, exist_ok=True)
-    os.makedirs(torch_cache_dir, exist_ok=True)
-    
-    # Настраиваем переменные окружения для кэширования
-    os.environ["TRANSFORMERS_CACHE"] = cache_dir
-    os.environ["TORCH_HOME"] = torch_cache_dir
-    os.environ["HF_HOME"] = cache_dir
+    # Загружаем модель
+    print("Загрузка модели...")
+    model_name = "bigcode/starcoder2-3b"  # Меняем на более доступную модель
     
     tokenizer = AutoTokenizer.from_pretrained(
         model_name,
         trust_remote_code=True,
-        cache_dir=cache_dir,
-        local_files_only=False,  # Разрешаем загрузку из интернета
-        resume_download=True     # Продолжаем прерванную загрузку
+        token=hf_token
     )
     
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         device_map="auto",
         trust_remote_code=True,
-        cache_dir=cache_dir,
-        torch_dtype=torch.float16,  # Используем float16 для экономии памяти
-        local_files_only=False,     # Разрешаем загрузку из интернета
-        resume_download=True,       # Продолжаем прерванную загрузку
-        low_cpu_mem_usage=True      # Оптимизация использования CPU
+        torch_dtype=torch.float16,
+        token=hf_token,
+        low_cpu_mem_usage=True
     ).eval()
     
     # Получаем измененные файлы
