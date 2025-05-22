@@ -13,9 +13,13 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Switch to main branch
+        run: git checkout main
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,15 +31,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install PyGithub
 
-      - name: Update progress
+      - name: Run update script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python .github/scripts/update_progress.py
+          .github/scripts/update_progress.py
 
-      - name: Commit changes
+      - name: Set up git config
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+      - name: Commit and push changes
+        run: |
           git add CONTRIBUTORS.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update progress" && git push)
+          git commit -m "Update progress" || echo "No changes to commit"
+          git push origin main
