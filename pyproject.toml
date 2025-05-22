@@ -25,7 +25,10 @@ dependencies = [
     "rich",
     "PyGithub",
     "ruff",
-    "openai"
+    "transformers",
+    "torch",
+    "accelerate",
+    "sentencepiece"
 ]
 
 [tool.ruff]
