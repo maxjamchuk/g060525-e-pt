@@ -1,0 +1,246 @@
+name: Update README with TOC
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.pptx"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/*.pptx"
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-pptx
+
+      - name: Generate TOC and Presentations Content
+        run: |
+          # Функция для получения оглавления презентации
+          function get_presentation_toc() {
+            local file=$1
+            python3 -c "
+import sys
+from pptx import Presentation
+try:
+    prs = Presentation('$file')
+    print('## ' + '$file'.split('/')[-1].replace('.pptx', ''))
+    print('')
+    for i, slide in enumerate(prs.slides, 1):
+        title = ''
+        for shape in slide.shapes:
+            if hasattr(shape, 'text'):
+                title = shape.text.strip()
+                if title:
+                    break
+        if not title:
+            title = f'Слайд {i}'
+        print(f'- {title}')
+    print('')
+except Exception as e:
+    print(f'Ошибка при обработке презентации: {str(e)}')
+"
+          }
+
+          # Функция для создания presentations.md в директории
+          function create_presentations_md() {
+            local dir=$1
+            local md_file="$dir/presentations.md"
+            
+            echo "# Презентации в директории $(basename "$dir")" > "$md_file"
+            echo "" >> "$md_file"
+            
+            # Получаем список всех .pptx файлов в директории
+            for file in $(find "$dir" -maxdepth 1 -name "*.pptx" | sort); do
+              get_presentation_toc "$file" >> "$md_file"
+            done
+          }
+
+          # Функция для создания прогресс-бара
+          function create_progress_bar() {
+            local current=$1
+            local total=$2
+            local width=20
+            local filled=$((current * width / total))
+            local empty=$((width - filled))
+            local percentage=$((current * 100 / total))
+            local bar=""
+            for ((i=0; i<filled; i++)); do
+              bar+="█"
+            done
+            for ((i=0; i<empty; i++)); do
+              bar+="░"
+            done
+            echo "\`\`\`diff"
+            echo "+ $bar ($current/$total) - $percentage%"
+            echo "\`\`\`"
+          }
+
+          # Функция для создания ссылок на файлы
+          function create_link() {
+            local path=$1
+            local title=$(basename "$path" | sed 's/\.pptx$//' | sed 's/-/ /g')
+            local depth=$2
+            local indent=$(printf '%*s' "$depth" '')
+            
+            # Получаем метаданные
+            local metadata=($(get_presentation_metadata "$path"))
+            local slides=${metadata[0]}
+            local date=${metadata[1]}
+            
+            # Определяем тип презентации
+            local emoji="📊"
+            local type="Лекция"
+            if [[ "$title" =~ [Пп]рактик ]]; then
+              emoji="💻"
+              type="Практика"
+            elif [[ "$title" =~ [Дд]ополнительн ]]; then
+              emoji="📚"
+              type="Дополнительно"
+            fi
+            
+            # Создаем чекбокс и ссылку
+            echo "${indent}- [ ] ${emoji} [${title}](${path})"
+            echo "${indent}  - Тип: ${type}"
+            echo "${indent}  - Слайдов: ${slides}"
+            echo "${indent}  - Обновлено: ${date}"
+            echo "${indent}  - [Оглавление]($(dirname "$path")/presentations.md#$(basename "$path" | sed 's/\.pptx$//' | sed 's/[^a-zA-Z0-9]/-/g'))"
+          }
+
+          # Функция для получения метаданных презентации
+          function get_presentation_metadata() {
+            local file=$1
+            python3 -c "
+import sys
+from pptx import Presentation
+try:
+    prs = Presentation('$file')
+    print(f'{len(prs.slides)}|{prs.core_properties.created.strftime("%Y-%m-%d") if prs.core_properties.created else "Unknown"}')
+except:
+    print('0|Unknown')
+"
+          }
+
+          # Функция для проверки, является ли директория модулем
+          function is_module() {
+            local dir=$1
+            [[ "$(basename "$dir")" =~ ^[0-9]+-.*$ ]] || [[ "$(basename "$dir")" =~ ^Модуль\ [0-9]+.*$ ]]
+          }
+
+          # Функция для получения номера модуля
+          function get_module_number() {
+            local dir=$1
+            local name=$(basename "$dir")
+            if [[ "$name" =~ ^[0-9]+-.*$ ]]; then
+              echo "$name" | sed -E 's/^([0-9]+)-.*/\1/'
+            elif [[ "$name" =~ ^Модуль\ [0-9]+.*$ ]]; then
+              echo "$name" | sed -E 's/^Модуль\ ([0-9]+).*/\1/'
+            else
+              echo "999"
+            fi
+          }
+
+          # Рекурсивный обход директорий
+          function scan_directory() {
+            local dir=$1
+            local depth=$2
+            local is_module_dir=$3
+            local module_total=0
+            local module_current=0
+            
+            # Сначала подсчитываем общее количество презентаций в модуле
+            if [ "$is_module_dir" = "true" ]; then
+              module_total=$(find "$dir" -name "*.pptx" | wc -l)
+            fi
+            
+            # Обрабатываем только .pptx файлы
+            for file in $(find "$dir" -maxdepth 1 -name "*.pptx" | sort); do
+              create_link "$file" "$depth" >> temp_toc.md
+              if [ "$is_module_dir" = "true" ]; then
+                ((module_current++))
+              fi
+            done
+            
+            # Создаем presentations.md в текущей директории, если есть презентации
+            if [ -n "$(find "$dir" -maxdepth 1 -name "*.pptx")" ]; then
+              create_presentations_md "$dir"
+            fi
+            
+            # Затем обрабатываем поддиректории
+            if [ "$is_module_dir" = "true" ]; then
+              # В модулях ищем только презентации
+              for subdir in $(find "$dir" -maxdepth 1 -type d | sort); do
+                if [ "$subdir" != "$dir" ] && [ "$(basename "$subdir")" != ".git" ] && [ "$(basename "$subdir")" != ".github" ]; then
+                  if [ -n "$(find "$subdir" -name "*.pptx")" ]; then
+                    echo "" >> temp_toc.md
+                    echo "### $(basename "$subdir")" >> temp_toc.md
+                    echo "" >> temp_toc.md
+                    scan_directory "$subdir" "$((depth + 2))" "false"
+                  fi
+                fi
+              done
+              # Добавляем прогресс-бар для модуля
+              if [ $module_total -gt 0 ]; then
+                echo "" >> temp_toc.md
+                echo "#### Прогресс модуля" >> temp_toc.md
+                create_progress_bar $module_current $module_total >> temp_toc.md
+                echo "" >> temp_toc.md
+              fi
+            else
+              # В корневой директории ищем модули
+              for subdir in $(find "$dir" -maxdepth 1 -type d | sort); do
+                if [ "$subdir" != "$dir" ] && [ "$(basename "$subdir")" != ".git" ] && [ "$(basename "$subdir")" != ".github" ]; then
+                  if is_module "$subdir"; then
+                    echo "" >> temp_toc.md
+                    echo "## $(basename "$subdir")" >> temp_toc.md
+                    echo "" >> temp_toc.md
+                    scan_directory "$subdir" "$((depth + 2))" "true"
+                  fi
+                fi
+              done
+            fi
+          }
+
+          # Начинаем сканирование с корневой директории
+          scan_directory "." 0 "false"
+
+      - name: Update README
+        run: |
+          # Сохраняем оригинальное содержимое README.md
+          cp README.md README.md.bak
+
+          # Объединяем оригинальное содержимое с новым TOC
+          cat temp_toc.md > README.md
+          echo "" >> README.md
+          echo "---" >> README.md
+          echo "" >> README.md
+          cat README.md.bak >> README.md
+
+          # Удаляем временные файлы
+          rm temp_toc.md README.md.bak
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git add **/presentations.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update README and presentations content" && git push)
