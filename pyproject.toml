@@ -15,6 +15,7 @@ dependencies = [
     "PyGithub",
     "transformers",
     "torch",
+    "accelerate",
     "ruff",
     "pylint"
 ]
@@ -38,6 +39,7 @@ include = [
 [tool.ruff]
 line-length = 100
 target-version = "py38"
+exclude = [".github/**/*"]
 
 [tool.pylint.messages_control]
 disable = [
@@ -146,3 +148,6 @@ spelling-ignore-module-names = false
 spelling-ignore-names = []
 spelling-ignore-patterns = []
 spelling-store-unknown-words = false
+
+[tool.pylint.files]
+ignore = [".github/**/*"]
