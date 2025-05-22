@@ -3,3 +3,4 @@
 # Ввод: "Hello, World!"
 # Вывод: 13
 bjblkk;k
+
