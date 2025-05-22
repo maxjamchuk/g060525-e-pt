@@ -82,7 +82,19 @@ def main():
     
     # Получаем информацию о PR
     repo_name = os.getenv("GITHUB_REPOSITORY")
-    pr_number = int(os.getenv("GITHUB_REF").split("/")[-1])
+    event_path = os.getenv("GITHUB_EVENT_PATH")
+    
+    if not event_path:
+        print("Ошибка: Не найден путь к файлу события")
+        sys.exit(1)
+        
+    # Читаем информацию о PR из файла события
+    import json
+    with open(event_path, 'r') as f:
+        event_data = json.load(f)
+        pr_number = event_data['pull_request']['number']
+    
+    print(f"Анализ PR #{pr_number}")
     
     repo = g.get_repo(repo_name)
     pr = repo.get_pull(pr_number)
@@ -90,11 +102,24 @@ def main():
     # Загружаем модель Qwen
     print("Загрузка модели Qwen...")
     model_name = "Qwen/Qwen2.5-32B-Instruct"
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    
+    # Используем кэшированные пути
+    cache_dir = os.getenv("TRANSFORMERS_CACHE", "~/.cache/huggingface/hub")
+    torch_cache_dir = os.getenv("TORCH_HOME", "~/.cache/torch")
+    
+    print(f"Используем кэш моделей: {cache_dir}")
+    print(f"Используем кэш PyTorch: {torch_cache_dir}")
+    
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name,
+        trust_remote_code=True,
+        cache_dir=cache_dir
+    )
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         device_map="auto",
-        trust_remote_code=True
+        trust_remote_code=True,
+        cache_dir=cache_dir
     ).eval()
     
     # Получаем измененные файлы
