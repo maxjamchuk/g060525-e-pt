@@ -39,25 +39,25 @@ jobs:
           function get_presentation_toc() {
           local file=$1
           python3 <<EOF
-          from pptx import Presentation
-          try:
-              prs = Presentation("$file")
-              print("## " + "$file".split("/")[-1].replace(".pptx", ""))
-              print("")
-              for i, slide in enumerate(prs.slides, 1):
-                  title = ""
-                  for shape in slide.shapes:
-                      if hasattr(shape, "text"):
-                          title = shape.text.strip()
-                          if title:
-                              break
-                  if not title:
-                      title = f"Слайд {i}"
-                  print(f"- {title}")
-              print("")
-          except Exception as e:
-              print(f"Ошибка при обработке презентации: {str(e)}")
-          EOF
+from pptx import Presentation
+try:
+    prs = Presentation("$file")
+    print("## " + "$file".split("/")[-1].replace(".pptx", ""))
+    print("")
+    for i, slide in enumerate(prs.slides, 1):
+        title = ""
+        for shape in slide.shapes:
+            if hasattr(shape, "text"):
+                title = shape.text.strip()
+                if title:
+                    break
+        if not title:
+            title = f"Слайд {i}"
+        print(f"- {title}")
+    print("")
+except Exception as e:
+    print(f"Ошибка при обработке презентации: {str(e)}")
+EOF
           }
 
           function create_presentations_md() {
@@ -90,14 +90,14 @@ jobs:
           function get_presentation_metadata() {
           local file=$1
           python3 <<EOF
-          from pptx import Presentation
-          try:
-            prs = Presentation("$file")
-            slides = len(prs.slides)
-            date = prs.core_properties.created.strftime("%Y-%m-%d") if prs.core_properties.created else "Unknown"
-            print(f"{slides}|{date}")
-          except:
-            print("0|Unknown")
+from pptx import Presentation
+try:
+    prs = Presentation("$file")
+    slides = len(prs.slides)
+    date = prs.core_properties.created.strftime("%Y-%m-%d") if prs.core_properties.created else "Unknown"
+    print(f"{slides}|{date}")
+except:
+    print("0|Unknown")
           EOF
           }
 
