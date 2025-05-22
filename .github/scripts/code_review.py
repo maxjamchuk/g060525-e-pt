@@ -4,7 +4,7 @@ import os
 import sys
 import subprocess
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Tuple
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from github import Github
@@ -14,7 +14,7 @@ def get_changed_files(pr: PullRequest) -> List[str]:
     """Получает список измененных файлов в PR."""
     return [file.filename for file in pr.get_files()]
 
-def run_ruff_check(file_path: str) -> str:
+def run_ruff_check(file_path: str) -> Tuple[str, bool]:
     """Запускает ruff для проверки файла."""
     try:
         result = subprocess.run(
@@ -22,11 +22,12 @@ def run_ruff_check(file_path: str) -> str:
             capture_output=True,
             text=True
         )
-        return result.stdout
+        has_issues = bool(result.stdout.strip())
+        return result.stdout, has_issues
     except subprocess.CalledProcessError as e:
-        return f"Ошибка при запуске ruff: {e}"
+        return f"Ошибка при запуске ruff: {e}", True
 
-def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> str:
+def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> Tuple[str, bool]:
     """Получает рекомендации от Qwen для улучшения кода."""
     try:
         prompt = f"""Ты - опытный Python разработчик. Проанализируй код и дай рекомендации по улучшению. 
@@ -51,9 +52,10 @@ def get_ai_recommendations(file_path: str, content: str, model, tokenizer) -> st
         
         # Извлекаем только рекомендации (после промпта)
         recommendations = response.split("Дай подробные рекомендации по улучшению кода:")[-1].strip()
-        return recommendations
+        has_recommendations = bool(recommendations.strip())
+        return recommendations, has_recommendations
     except Exception as e:
-        return f"Ошибка при получении AI рекомендаций: {e}"
+        return f"Ошибка при получении AI рекомендаций: {e}", True
 
 def create_review_comment(pr: PullRequest, file_path: str, ruff_output: str, ai_recommendations: str):
     """Создает комментарий к PR с результатами проверки."""
@@ -68,6 +70,27 @@ def create_review_comment(pr: PullRequest, file_path: str, ruff_output: str, ai_
 {ai_recommendations}
 """
     pr.create_issue_comment(comment)
+
+def notify_author(pr: PullRequest, files_with_issues: List[str]):
+    """Отправляет уведомление автору PR о найденных проблемах."""
+    if not files_with_issues:
+        return
+
+    author = pr.user.login
+    files_list = "\n".join(f"- {file}" for file in files_with_issues)
+    
+    notification = f"""Привет, @{author}! 👋
+
+Я проанализировал ваш PR и нашел несколько моментов, которые стоит улучшить:
+
+{files_list}
+
+Пожалуйста, ознакомьтесь с комментариями к каждому файлу для получения подробных рекомендаций.
+
+Если у вас есть вопросы или нужна помощь с исправлениями, дайте знать! 🤝
+"""
+    
+    pr.create_issue_comment(notification)
 
 def main():
     # Получаем токен из переменных окружения
@@ -124,6 +147,7 @@ def main():
     
     # Получаем измененные файлы
     changed_files = get_changed_files(pr)
+    files_with_issues = []
     
     # Анализируем каждый файл
     for file_path in changed_files:
@@ -136,11 +160,19 @@ def main():
         file_content = repo.get_contents(file_path, ref=pr.head.sha).decoded_content.decode()
         
         # Запускаем проверки
-        ruff_output = run_ruff_check(file_path)
-        ai_recommendations = get_ai_recommendations(file_path, file_content, model, tokenizer)
+        ruff_output, has_ruff_issues = run_ruff_check(file_path)
+        ai_recommendations, has_ai_recommendations = get_ai_recommendations(file_path, file_content, model, tokenizer)
+        
+        # Если есть проблемы, добавляем файл в список
+        if has_ruff_issues or has_ai_recommendations:
+            files_with_issues.append(file_path)
         
         # Создаем комментарий
         create_review_comment(pr, file_path, ruff_output, ai_recommendations)
+    
+    # Отправляем уведомление автору, если есть проблемы
+    if files_with_issues:
+        notify_author(pr, files_with_issues)
 
 if __name__ == "__main__":
     main() 

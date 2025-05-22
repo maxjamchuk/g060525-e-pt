@@ -28,6 +28,13 @@ jobs:
           python-version: "3.x"
           cache: "pip"
 
+      - name: Get cache date
+        id: cache-date
+        run: |
+          # Получаем дату 15 дней назад
+          CACHE_DATE=$(date -d "15 days ago" +%Y-%m-%d)
+          echo "CACHE_DATE=$CACHE_DATE" >> $GITHUB_ENV
+
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
@@ -35,16 +42,18 @@ jobs:
             ~/.cache/pip
             ~/.cache/torch
             ~/.cache/huggingface
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}-${{ env.CACHE_DATE }}
           restore-keys: |
+            ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}-
             ${{ runner.os }}-pip-
 
       - name: Cache model
         uses: actions/cache@v3
         with:
           path: ~/.cache/huggingface/hub
-          key: ${{ runner.os }}-model-qwen-${{ hashFiles('**/pyproject.toml') }}
+          key: ${{ runner.os }}-model-qwen-${{ hashFiles('**/pyproject.toml') }}-${{ env.CACHE_DATE }}
           restore-keys: |
+            ${{ runner.os }}-model-qwen-${{ hashFiles('**/pyproject.toml') }}-
             ${{ runner.os }}-model-qwen-
 
       - name: Install dependencies
