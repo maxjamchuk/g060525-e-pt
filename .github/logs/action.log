@@ -1,0 +1,277 @@
+[2025-05-22 23:30:22] [INFO] Starting presentation processing
+[2025-05-22 23:30:22] [INFO] Root directory: .
+[2025-05-22 23:30:22] [INFO] Output file: README.md
+[2025-05-22 23:30:22] [INFO] Scanning directory: .
+[2025-05-22 23:30:22] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:30:22] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:30:22] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:30:22] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:30:23] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:30:23] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:30:23] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:30:23] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:30:23] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:30:23] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:30:23] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:30:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:30:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:30:24] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:30:24] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:30:24] [INFO] Presentation processing completed
+[2025-05-22 23:32:21] [INFO] Starting presentation processing
+[2025-05-22 23:32:21] [INFO] Root directory: .
+[2025-05-22 23:32:21] [INFO] Output file: README.md
+[2025-05-22 23:32:21] [INFO] Scanning directory: .
+[2025-05-22 23:32:21] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:32:21] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:32:21] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:32:21] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:32:22] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:32:22] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:32:22] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:32:22] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:32:22] [INFO] Presentation processing completed
+[2025-05-22 23:33:23] [INFO] Starting presentation processing
+[2025-05-22 23:33:23] [INFO] Root directory: .
+[2025-05-22 23:33:23] [INFO] Output file: README.md
+[2025-05-22 23:33:23] [INFO] Scanning directory: .
+[2025-05-22 23:33:23] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:33:23] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:33:23] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:33:24] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:33:24] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:33:24] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:33:25] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:33:25] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:33:25] [INFO] Presentation processing completed
+[2025-05-22 23:33:39] [INFO] Starting presentation processing
+[2025-05-22 23:33:39] [INFO] Root directory: .
+[2025-05-22 23:33:39] [INFO] Output file: README.md
+[2025-05-22 23:33:39] [INFO] Scanning directory: .
+[2025-05-22 23:33:39] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:33:39] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:33:39] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:33:39] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:33:40] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:33:40] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:33:40] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:33:40] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:33:40] [INFO] Presentation processing completed
+[2025-05-22 23:35:03] [INFO] Starting presentation processing
+[2025-05-22 23:35:03] [INFO] Root directory: .
+[2025-05-22 23:35:03] [INFO] Output file: README.md
+[2025-05-22 23:35:03] [INFO] Scanning directory: .
+[2025-05-22 23:35:03] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:35:03] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:35:03] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:35:03] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:35:03] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:35:03] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:35:04] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:35:04] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:35:04] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:35:04] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:35:04] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:35:04] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:35:04] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:35:04] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:35:04] [INFO] Presentation processing completed
+[2025-05-22 23:35:16] [INFO] Starting presentation processing
+[2025-05-22 23:35:16] [INFO] Root directory: .
+[2025-05-22 23:35:16] [INFO] Output file: README.md
+[2025-05-22 23:35:16] [INFO] Scanning directory: .
+[2025-05-22 23:35:16] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:35:16] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:35:16] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:35:16] [INFO] Found        1 presentations in ./00-Intro//day-1/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./00-Intro//day-2/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:35:17] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:35:17] [INFO] Found        1 presentations in ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:35:17] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:35:17] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:35:17] [INFO] Presentation processing completed
+[2025-05-22 23:38:50] [INFO] Starting presentation processing
+[2025-05-22 23:38:50] [INFO] Root directory: .
+[2025-05-22 23:38:50] [INFO] Output file: README.md
+[2025-05-22 23:38:50] [INFO] Scanning directory: .
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:38:50] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:38:50] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:38:50] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:38:51] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:38:51] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:38:51] [INFO] Presentation processing completed
+[2025-05-22 23:40:25] [INFO] Starting presentation processing
+[2025-05-22 23:40:25] [INFO] Root directory: .
+[2025-05-22 23:40:25] [INFO] Output file: README.md
+[2025-05-22 23:40:25] [INFO] Scanning directory: .
+[2025-05-22 23:40:25] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:40:25] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:40:25] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:40:26] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:40:26] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:40:27] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:40:27] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:40:27] [INFO] Presentation processing completed
+[2025-05-22 23:41:34] [INFO] Starting presentation processing
+[2025-05-22 23:41:34] [INFO] Root directory: .
+[2025-05-22 23:41:34] [INFO] Output file: README.md
+[2025-05-22 23:41:34] [INFO] Scanning directory: .
+[2025-05-22 23:41:34] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:41:34] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:41:34] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:41:35] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:41:35] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:41:35] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:41:35] [INFO] Presentation processing completed
+[2025-05-22 23:41:55] [INFO] Starting presentation processing
+[2025-05-22 23:41:55] [INFO] Root directory: .
+[2025-05-22 23:41:55] [INFO] Output file: README.md
+[2025-05-22 23:41:55] [INFO] Scanning directory: .
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./00-Intro/
+[2025-05-22 23:41:55] [INFO] Found module: 00-Intro (Number: 00)
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./00-Intro//day-1/
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./00-Intro//day-2/
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:41:55] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:41:55] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:41:56] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:41:56] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:41:56] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:41:56] [INFO] Scanning directory: ./Модуль 2. Основы Python//Урок 5. Pull requests/
+[2025-05-22 23:41:56] [INFO] Presentation processing completed
+[2025-05-22 23:45:29] [INFO] Starting presentation processing
+[2025-05-22 23:45:29] [INFO] Root directory: .
+[2025-05-22 23:45:29] [INFO] Output file: README.md
+[2025-05-22 23:45:29] [INFO] Scanning directory: .
+[2025-05-22 23:45:29] [INFO] Scanning directory: ./Модуль 0. Вводный/
+[2025-05-22 23:45:29] [INFO] Found module: Модуль 0. Вводный (Number: Модуль 0. Вводный)
+[2025-05-22 23:45:29] [INFO] Scanning directory: ./Модуль 0. Вводный//day-1/
+[2025-05-22 23:45:29] [INFO] Scanning directory: ./Модуль 0. Вводный//day-2/
+[2025-05-22 23:45:29] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:45:29] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:45:29] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:45:30] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:45:30] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:45:30] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:45:30] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:45:30] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:45:30] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:45:30] [INFO] Presentation processing completed
+[2025-05-22 23:48:09] [INFO] Starting presentation processing
+[2025-05-22 23:48:09] [INFO] Root directory: .
+[2025-05-22 23:48:09] [INFO] Output file: README.md
+[2025-05-22 23:48:09] [INFO] Scanning directory: .
+[2025-05-22 23:48:09] [INFO] Scanning directory: ./Модуль 0. Вводный/
+[2025-05-22 23:48:09] [INFO] Found module: Модуль 0. Вводный (Number: Модуль 0. Вводный)
+[2025-05-22 23:48:09] [INFO] Scanning directory: ./Модуль 0. Вводный//Урок 1. Основы взаимодействия в IT-командах/
+[2025-05-22 23:48:09] [INFO] Scanning directory: ./Модуль 0. Вводный//Урок 2. Алгоритмы в программировани/
+[2025-05-22 23:48:09] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:48:10] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:48:10] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:48:10] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:48:10] [INFO] Presentation processing completed
+[2025-05-22 23:48:13] [INFO] Starting presentation processing
+[2025-05-22 23:48:13] [INFO] Root directory: .
+[2025-05-22 23:48:13] [INFO] Output file: README.md
+[2025-05-22 23:48:13] [INFO] Scanning directory: .
+[2025-05-22 23:48:13] [INFO] Scanning directory: ./Модуль 0. Вводный/
+[2025-05-22 23:48:13] [INFO] Found module: Модуль 0. Вводный (Number: Модуль 0. Вводный)
+[2025-05-22 23:48:13] [INFO] Scanning directory: ./Модуль 0. Вводный//Урок 1. Основы взаимодействия в IT-командах/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 0. Вводный//Урок 2. Алгоритмы в программировани/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction/
+[2025-05-22 23:48:14] [INFO] Found module: Модуль 1. Introduction (Number: Модуль 1. Introduction)
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 1. Знакомство, введение/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 2. Основы работы в Terminal и PyCharm/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 3. Основы работы в Git и GitHub/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 4. Ветвление и слияния в Git/
+[2025-05-22 23:48:14] [INFO] Scanning directory: ./Модуль 1. Introduction//Урок 5. Pull requests/
+[2025-05-22 23:48:15] [INFO] Scanning directory: ./Модуль 2. Основы Python/
+[2025-05-22 23:48:15] [INFO] Found module: Модуль 2. Основы Python (Number: Модуль 2. Основы Python)
+[2025-05-22 23:48:15] [INFO] Presentation processing completed

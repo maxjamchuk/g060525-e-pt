@@ -1,14 +1,14 @@
-name: Update README with TOC
+name: Update README
 
 on:
   push:
     branches: [main]
-#    paths:
-#      - "**/*.pptx"
-#  pull_request:
-#    branches: [main]
-#    paths:
-#      - "**/*.pptx"
+    paths:
+      - "**.pptx"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.pptx"
 
 jobs:
   update-readme:
@@ -32,140 +32,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install python-pptx
 
-      - name: Generate TOC and Presentations Content
+      - name: Make scripts executable
+        run: chmod +x .github/scripts/*.py .github/scripts/bash/*.sh
+
+      - name: Generate TOC and presentations content
         run: |
-          set -euo pipefail
+          .github/scripts/bash/process_presentations.sh . README.md
 
-          # Функция для создания прогресс-бара
-          function create_progress_bar() {
-            local current=$1
-            local total=$2
-            local width=20
-            local filled=$((current * width / total))
-            local empty=$((width - filled))
-            local percentage=$((current * 100 / total))
-            local bar=""
-            for ((i=0; i<filled; i++)); do bar+="█"; done
-            for ((i=0; i<empty; i++)); do bar+="░"; done
-            echo "\`\`\`diff"
-            echo "+ $bar ($current/$total) - $percentage%"
-            echo "\`\`\`"
-          }
-
-          # Функция для создания ссылок на файлы
-          function create_link() {
-            local path=$1
-            local title=$(basename "$path" | sed 's/\.pptx$//' | sed 's/-/ /g')
-            local depth=$2
-            local indent=$(printf '%*s' "$depth" '')
-            
-            # Получаем метаданные из вывода Python скрипта
-            IFS='|' read -r _ slides date <<< "$(python3 .github/scripts/process_presentations.py "$(dirname "$path")" | grep "^$title|")"
-            
-            local emoji="📊"
-            local type="Лекция"
-            [[ "$title" =~ [Пп]рактик ]] && { emoji="💻"; type="Практика"; }
-            [[ "$title" =~ [Дд]ополнительн ]] && { emoji="📚"; type="Дополнительно"; }
-            
-            local toc_dir=$(dirname "$path")
-            [[ "$toc_dir" == "." ]] && toc_dir="."
-            
-            echo "${indent}- [ ] ${emoji} [${title}](${path})"
-            echo "${indent}  - Тип: ${type}"
-            echo "${indent}  - Слайдов: ${slides}"
-            echo "${indent}  - Обновлено: ${date}"
-            echo "${indent}  - [Оглавление](${toc_dir}/presentations.md#$(basename "$path" | sed 's/\.pptx$//' | sed 's/[^a-zA-Z0-9]/-/g'))"
-          }
-
-          # Функция для проверки, является ли директория модулем
-          function is_module() {
-            local dir=$1
-            [[ "$(basename "$dir")" =~ ^[0-9]+-.*$ ]] || [[ "$(basename "$dir")" =~ ^Модуль\ [0-9]+.*$ ]]
-          }
-
-          # Функция для получения номера модуля
-          function get_module_number() {
-            local dir=$1
-            local name=$(basename "$dir")
-            [[ "$name" =~ ^[0-9]+-.*$ ]] && echo "$name" | sed -E 's/^([0-9]+)-.*/\1/' && return
-            [[ "$name" =~ ^Модуль\ [0-9]+.*$ ]] && echo "$name" | sed -E 's/^Модуль\ ([0-9]+).*/\1/' && return
-            echo "999"
-          }
-
-          # Рекурсивный обход директорий
-          function scan_directory() {
-            local dir=$1
-            local depth=$2
-            local is_module_dir=$3
-            local module_total=0
-            local module_current=0
-            
-            if [ "$is_module_dir" = "true" ]; then
-              module_total=$(find "$dir" -name "*.pptx" | wc -l)
-            fi
-            
-            # Обрабатываем презентации в текущей директории
-            if [ -n "$(find "$dir" -maxdepth 1 -name "*.pptx")" ]; then
-              # Запускаем параллельную обработку
-              python3 .github/scripts/process_presentations.py "$dir"
-              
-              # Создаем ссылки на файлы
-              find "$dir" -maxdepth 1 -name "*.pptx" | sort | while IFS= read -r file; do
-                create_link "$file" "$depth" >> temp_toc.md
-                [ "$is_module_dir" = "true" ] && ((module_current++))
-              done
-            fi
-            
-            # Обрабатываем поддиректории
-            find "$dir" -maxdepth 1 -type d | sort | while IFS= read -r subdir; do
-              [ "$subdir" = "$dir" ] && continue
-              base=$(basename "$subdir")
-              [[ "$base" == ".git" || "$base" == ".github" ]] && continue
-              
-              if [ "$is_module_dir" = "true" ]; then
-                if find "$subdir" -name "*.pptx" | grep -q .; then
-                  echo "" >> temp_toc.md
-                  echo "### $base" >> temp_toc.md
-                  echo "" >> temp_toc.md
-                  scan_directory "$subdir" "$((depth + 2))" "false"
-                fi
-              else
-                if is_module "$subdir"; then
-                  echo "" >> temp_toc.md
-                  echo "## $base" >> temp_toc.md
-                  echo "" >> temp_toc.md
-                  scan_directory "$subdir" "$((depth + 2))" "true"
-                fi
-              fi
-            done
-            
-            if [ "$is_module_dir" = "true" ] && [ "$module_total" -gt 0 ]; then
-              echo "" >> temp_toc.md
-              echo "#### Прогресс модуля" >> temp_toc.md
-              create_progress_bar $module_current $module_total >> temp_toc.md
-              echo "" >> temp_toc.md
-            fi
-          }
-
-          # Начинаем сканирование с корневой директории
-          scan_directory "." 0 "false"
-
-      - name: Update README
-        run: |
-          cp README.md README.md.bak
-
-          cat temp_toc.md > README.md
-          echo "" >> README.md
-          echo "---" >> README.md
-          echo "" >> README.md
-          cat README.md.bak >> README.md
-
-          rm temp_toc.md README.md.bak
-
-      - name: Commit and push if changed
+      - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          git add **/presentations.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update README and presentations content" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update README.md" && git push)
