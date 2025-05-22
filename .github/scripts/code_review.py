@@ -124,7 +124,7 @@ def main():
     
     # Загружаем модель CodeLlama
     print("Загрузка модели CodeLlama...")
-    model_name = "codellama/CodeLlama-7b-Instruct-hf"
+    model_name = "codellama/CodeLlama-3b-Instruct-hf"
     
     # Используем кэшированные пути
     cache_dir = os.getenv("TRANSFORMERS_CACHE", "~/.cache/huggingface/hub")
@@ -133,17 +133,32 @@ def main():
     print(f"Используем кэш моделей: {cache_dir}")
     print(f"Используем кэш PyTorch: {torch_cache_dir}")
     
+    # Создаем директории кэша, если они не существуют
+    os.makedirs(cache_dir, exist_ok=True)
+    os.makedirs(torch_cache_dir, exist_ok=True)
+    
+    # Настраиваем переменные окружения для кэширования
+    os.environ["TRANSFORMERS_CACHE"] = cache_dir
+    os.environ["TORCH_HOME"] = torch_cache_dir
+    os.environ["HF_HOME"] = cache_dir
+    
     tokenizer = AutoTokenizer.from_pretrained(
         model_name,
         trust_remote_code=True,
-        cache_dir=cache_dir
+        cache_dir=cache_dir,
+        local_files_only=False,  # Разрешаем загрузку из интернета
+        resume_download=True     # Продолжаем прерванную загрузку
     )
+    
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         device_map="auto",
         trust_remote_code=True,
         cache_dir=cache_dir,
-        torch_dtype=torch.float16  # Используем float16 для экономии памяти
+        torch_dtype=torch.float16,  # Используем float16 для экономии памяти
+        local_files_only=False,     # Разрешаем загрузку из интернета
+        resume_download=True,       # Продолжаем прерванную загрузку
+        low_cpu_mem_usage=True      # Оптимизация использования CPU
     ).eval()
     
     # Получаем измененные файлы
