@@ -2,5 +2,5 @@
 # Пример:
 # Ввод: "Hello, World!"
 # Вывод: 13
-bjblkk;k
+bjblkk;k7777
 
