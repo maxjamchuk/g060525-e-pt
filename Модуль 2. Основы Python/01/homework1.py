@@ -2,3 +2,4 @@
 # Пример:
 # Ввод: "Hail Hitler"
 # Вывод: 1488
+print("Hail Hitler")
