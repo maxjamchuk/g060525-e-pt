@@ -3,12 +3,12 @@ name: Update README with TOC
 on:
   push:
     branches: [main]
-    paths:
-      - "**/*.pptx"
-  pull_request:
-    branches: [main]
-    paths:
-      - "**/*.pptx"
+#    paths:
+#      - "**/*.pptx"
+#  pull_request:
+#    branches: [main]
+#    paths:
+#      - "**/*.pptx"
 
 jobs:
   update-readme:
