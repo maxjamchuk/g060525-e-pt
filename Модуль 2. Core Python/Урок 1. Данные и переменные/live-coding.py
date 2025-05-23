@@ -6,6 +6,25 @@
 # - Переприсвание, каскадное присваивание, множественное присваивание
 # - Наименования переменных
 
+var_int = 5
+var_float = 3.14
+var_str = "Hello"
+
+print(type(var_int), var_int)
+print(type(var_float), var_float)
+print(type(var_str), var_str)
+
+a = 1
+b = a
+
+print (a, b)
+
+a, b = 2, 3
+print(a,b)
+
+a,b = b,a
+
+print(a,b)
 
 
 

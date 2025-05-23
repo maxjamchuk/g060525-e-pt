@@ -1,7 +1,7 @@
 a = 7
-first_word = "Привет"
+first_word = "Мама"
 x = 68.9
-STUDENT = "Sergey"
+STUDENT = "Kyrylo Pankov"
 
 a = 2 + 3  # результат 5 (целое число)
 b = 2.2 + 3  # результат 5.2 (дробное число)
