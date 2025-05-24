@@ -3,3 +3,4 @@
 # Ввод: "Hello, World!"
 # Вывод: 13
 # Я что-то меняю
+print(len("Hello"))
