@@ -1,0 +1,27 @@
+[project]
+name = "g060525-e-pt"
+version = "0.1.0"
+description = "Система мониторинга GitHub Actions"
+requires-python = ">=3.8"
+dependencies = [
+    "python-pptx",
+    "flask",
+    "jinja2",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "requests",
+    "prometheus-client",
+    "datadog",
+    "grafana-api",
+    "pdfkit",
+    "weasyprint",
+    "python-json-logger",
+    "loguru",
+    "cryptography",
+    "python-dotenv",
+    "tqdm",
+    "click",
+    "rich",
+    "PyGithub"
+]
