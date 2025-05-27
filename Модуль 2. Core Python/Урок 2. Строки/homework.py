@@ -3,7 +3,6 @@
 
 # 1. Объедините строки "Hello" и "London" без пробела. Ожидаемый результат: "HelloLondon"
 
-
 # 2. Выведите последний символ строки "Programming". Ожидаемый результат: "g"
 
 
@@ -120,72 +119,92 @@
 # Ожидаемый результат:
 # Hello
 # World
+print("Hello\nWorld")
 
 
 # 2. Вставьте символ обратного слэша в строку "This is a backslash: ".
 # Ожидаемый результат: "This is a backslash: \"
-
+print("This is a backslash: \\")
 
 # 3. Экранируйте кавычки в строке "He said, "Hello!"".
 # Ожидаемый результат: He said, "Hello!"
-
+print(" He said, \"Hello!\"")
 
 # 4. Экранируйте одинарные кавычки в строке "It's a sunny day".
 # Ожидаемый результат: It's a sunny day
-
+print('It\'s a sunny day')
 
 # 5. Вставьте символ новой строки в строку "Python Programming".
 # Ожидаемый результат:
 # Python
 # Programming
-
+print("Python\nProgramming")
 
 # 6. Экранируйте кавычки в строке "She said, 'Hi!'".
 # Ожидаемый результат: She said, 'Hi!'
-
+print('She said, \'Hi!\'')
 
 # 7. Экранируйте обратный слэш в строке "Path to file: C:\\".
 # Ожидаемый результат: Path to file: C:\\
-
+print("Path to file: C:\\")
 
 # 8. Используйте метод `format()` для строки "This is a ... course for ... learners." с переменными course="Python"
 # и level="beginner". Ожидаемый результат: "This is a Python course for beginner learners."
-
-
+course="Python"
+level="beginner"
+print("This is a {} course for {} learners.".format(course, level))
 # 9. Используйте F-строку для строки "This is a ... course for ... learners." с переменными
 # course="Python" и level="beginner". Ожидаемый результат: "This is a Python course for beginner learners."
-
-
+course="Python"
+level="beginner"
+print(f"This is a {course} course for {level} learners.")
 # 10. Используйте метод `format()` для строки "Welcome to the ... workshop." с переменной topic="Machine Learning".
 # Ожидаемый результат: "Welcome to the Machine Learning workshop."
-
+topic="Machine Learning"
+print("Welcome to the {} workshop.".format(topic))
 
 # 11. Используйте F-строку для строки "Welcome to the ... workshop." с переменной topic="Machine Learning".
 # Ожидаемый результат: "Welcome to the Machine Learning workshop."
-
+topic="Machine Learning"
+print(f"Welcome to the {topic} workshop. ")
 
 # 12. Придумайте название переменной и поместите в нее строку "machine learning",
 # затем преобразуйте первые буквы слов в заглавный регистр, чтобы получилось "Machine Learning".
 # Затем создайте переменную со строкой "Course: ". Используйте метод `format()`, чтобы показать в консоле
 # "Course: Machine Learning"
-
-
+ending="machine learnimg"
+result=ending.title()
+print("Course: {}".format(result))
 # 13. Объедините строки "Data" и "Science" с пробелом между ними, дублируйте результат три раза, и используйте F-строку
 # для строки "Field: ...". Ожидаемый результат: "Field: Data ScienceData ScienceData Science"
-
-
+str1="Data"
+str2="Science"
+result1=str1+" "+str2
+result2=result1*3
+print(f"Field: {result2}")
 # 14. Выведите третий символ строки "Information", затем используйте метод `format()` для строки "Third character: ...".
 # Ожидаемый результат: "Third character: f"
-
-
+str="Information"
+third=str[2]
+print("Third character: {}".format(third))
 # 15. Определите длину строки "Neural Networks", умножьте её на 2, и используйте F-строку для строки "Length: ".
-# Ожидаемый результат: "Length: 28"
-
+# Ожидаемый результат: "Length: 28" Мне кажется тут ошибка и должно быть "Length: 30" , но может я не прав
+str3="Neural Networks"
+result3=len(str3)
+print(result3)
+result4=result3*2
+print(f"Lenght: {result4}")
 
 # 16. Преобразуйте строку "Deep Learning" в заглавный регистр, найдите индекс подстроки "LEARNING", и выведите символ
 # на этом индексе. Ожидаемый результат: "L"
+str5="Deep Learning"
+result5=str5.upper()
+result6=result5.find("LEARNING")
+result7="DEEP LEARNING"[5]
+print(result7)
 
-
-# 20. Определите длину строки "Starta", затем преобразуйте её в строку и добавьте к строке " has length of ",
+# 17. Определите длину строки "Starta", затем преобразуйте её в строку и добавьте к строке " has length of ",
 # используя метод `format()`. Ожидаемый результат: "Starta has length of 6"
-
+str9="Starta"
+result8=len(str9)
+print("{} has length of {}".format(str9, result8))

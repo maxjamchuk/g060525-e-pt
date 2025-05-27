@@ -6,7 +6,6 @@
 # Hello
 # World
 
-
 # 2. Вставьте символ обратного слэша в строку "This is a backslash: ".
 # Ожидаемый результат: "This is a backslash: \"
 
