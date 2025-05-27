@@ -3,10 +3,13 @@
 
 # 1. Преобразуйте строку "hOw aRe yOu?" в верхний регистр.
 # Ожидаемый результат: "HOW ARE YOU?"
+str_1 = "hOw aRe yOu?"
+print(str_1.upper())
 
 
 # 2. Посчитайте количество символов "a" в строке "Bananas are amazing!".
-
+str2 = "Bananas are amazing!"
+print(str2.lower())
 
 # 3. Преобразуйте строку "PYTHON PROGRAMMING" в нижний регистр.
 # Ожидаемый результат: "python programming"
