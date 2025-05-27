@@ -13,6 +13,8 @@ print(str2.lower())
 
 # 3. Преобразуйте строку "PYTHON PROGRAMMING" в нижний регистр.
 # Ожидаемый результат: "python programming"
+str3 = "PYTHON PROGRAMMING"
+print(str3.lower())
 
 
 # 4. Удалите начальные пробелы из строки "   Discover new worlds   ".
