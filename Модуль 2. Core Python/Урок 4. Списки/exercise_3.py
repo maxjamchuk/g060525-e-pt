@@ -23,6 +23,40 @@
 
 
 # Продолжите программу ниже. Код пишите с отсутпом, как принты выше.
+tasks=[
+    [1, "Погладить кота", False],
+    [2, "Убедить чайник, что он не робот", False],
+    [3, "Переубедить будильник что 6 утра это еще сликшом рано для подьема", False],
+    [4, "Орган7изовать всчечу с моим внутренним голосом, в реальности, с повесткой к психотерапевту", False],
+]
+c=len(tasks)
+inputed_task=[]
+text = input("ВВедите задачу: ")
+ii=c+1
+inputed_task=[ii, text, False]
+tasks.append(inputed_task)
+print("ЗАДАЧА добавлена")
+print(tasks)
 
 
+do=input("ВВедите что делать \"del\" или \"complete\" что бы выбрать действие удалить или завершить задачу")
+c=len(tasks)
+if do == "del":
+    numer=int(input("ВВедите номер задачи что бы удалить! : "))
+    if numer>c:
+        print("Коллега вы проебались с неомером задачи")
+    else:
+        tasks.pop(numer-1)
+elif do == "complete":
+    numer=int(input("ВВедите номер задачи что бы завершить! : "))
+    if numer>c:
+        print("Коллега вы проебались с неомером задачи")
+    else:
+        numer=numer-1
+        tasks[numer][2]=True
+else:
+    print("Коллега вы ввели хуйню")
 
+print(tasks)
+
+# sql="SELECT * WHERE id=1"
