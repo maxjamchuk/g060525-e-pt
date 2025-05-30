@@ -9,6 +9,8 @@
 # задачу в список, где первым элементом идет номер задачи, вторым задача, а третьим статус ее выполнения.
 # При создании задачи статус всегда False. Список с задачей добавляется во вложенный список со всеми задачами tasks.
 
+
+
 # 2. Программа должна выводить список задач.
 
 # 3. Пользователь должен иметь возможность отметить задачу как выполненную. Для этого программа должна запросить у него
@@ -25,4 +27,35 @@
 # Продолжите программу ниже. Код пишите с отсутпом, как принты выше.
 
 
+tasks=[]
+task_number= len(tasks) + 1
+task_user=input("Введите задачу ")
+task=[task_number, task_user, False]
+tasks.append(task)
+task_number= len(tasks) + 1
+task_user1=input("Введите задачу ")
+task1=[task_number, task_user1, False]
+tasks.append(task1)
+task_number= len(tasks) + 1
+task_user2=input("Введите задачу ")
+task2=[task_number, task_user2, False]
+tasks.append(task2)
+print(tasks)
+task_done=int(input("Введите номер выполненой задачи: "))
+if 1 <= task_done <= 3 :
+    tasks[task_done -1][2]=True
+    print(f"Задача под номером {task_done} выполнена")
+else:
+    print("Некорректный номер задачи. ")
+print("Вот обновленный список задач: ", tasks)
+n1= input("Может ты хочешь удалить задачу? ")
+if n1 == "Да" or "да":
+    n2=int(input("Введите номер задачи кторую вы хотите удалить: "))
+    if 1 <= n2 <= 3:
+        tasks.pop(n2-1)
+        print("Список после удаления: ", tasks)
+    else:
+        print("Такой задачи не существует")
 
+else:
+    print("Список без изменений: ", tasks)
