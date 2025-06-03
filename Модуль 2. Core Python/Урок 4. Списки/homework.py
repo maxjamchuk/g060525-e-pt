@@ -5,10 +5,17 @@
 # Измените элемент "milk" на "almond milk".
 # Создайте срез, содержащий первые два элемента списка.
 # Создайте вложенный список, где каждый элемент списка покупок будет содержать его цену.
+shopping_list = ["bread", "milk", "eggs"]
+list1 = "almond milch"
+slice_shopping_list = list1[:2]
+detailed_shopping_list = [["btead", 1,5],["almond milch", 3.0], ["eggs", 2.0]]
 
+print(shopping_list)
+print(slice_shopping_list)
+print(detailed_shopping_list)
 # Выведите список покупок, срез и вложенный список.
 # print(shopping_list)  # Ожидаемый результат: ["bread", "almond milk", "eggs"]
-# print(slice_shopping_list)  # Ожидаемый результат: ["bread", "almond milk"]
+# print(slice_shopping_list)  # Ожидаемый результат: ["bread", "almond milk","eggs"]
 # print(detailed_shopping_list)  # Ожидаемый результат: [["bread", 1.5], ["almond milk", 3.0], ["eggs", 2.0]]
 
 
@@ -19,12 +26,18 @@
 # Создайте вложенный список, где каждый студент имеет список своих оценок.
 
 # Выведите список студентов, срез и вложенный список.
-# print(students)  # Ожидаемый результат: ["Alice", "Eve", "Charlie", "David"]
+# print(students)  # Ожидаемый результат:"Alice", "Eve", "Charlie", " David"]
 # print(top_students)  # Ожидаемый результат: ["Bob", "Charlie"]
 # print(student_grades)  # Ожидаемый результат:
 # [["Alice", [90, 85, 88]], ["Eve", [75, 80, 82]], ["Charlie", [95, 92, 93]], ["David", [78, 85, 84]]]
+students = ["Alice", "Bob", "Charlie", " David"]
+students[1] = "Eva"
+top_students = students[1:3]
+students_grades = ["Alice", [90,85, 88]], ["Eve",[75, 80, 88]], ["Charlie", [95, 92, 93]], ["David", [70, 65, 72]]
 
-
+print(students)
+print(top_students)
+print(students_grades)
 # Упражнение 3: Управление списком задач
 # Создайте список задач, содержащий элементы "task1", "task2", "task3", "task4.
 # Измените третью задачу на "task3 updated".
@@ -37,6 +50,14 @@
 # print(detailed_tasks)  # Ожидаемый результат:
 # [["task1", True], ["task2 updated", False], ["task3", True], ["task4", False]]
 
+tasks = ["task1", "task2", "task3", "task4"]
+tasks[2] = "task3 updated"
+last_tasks = tasks[-2:]
+detailed_tasks = [tasks[0], True], [tasks[1],False], [tasks[2], True], [tasks[3], False]
+
+print("Список задач:", tasks)
+print("Cрез последних задач:", last_tasks)
+print("Bложенний список задач со статусом:",detailed_tasks)
 
 # Тема: Методы списков
 
@@ -49,14 +70,32 @@
 # ["Movie1", 2010, 8.1], ["Updated Movie2", 2015, 7.5], ["Movie3", 2020, 8.6], ["Movie4", 2021, 7.9],
 # ["Movie5", 2013, 8.5], ["Movie6", 2018, 8.6], ["Movie7", 2023, 7.0]
 # 1.5 Добавьте фильм ["Movie", 2002, 7.7] в начало вложенного списка.
-# 1.6 Выведите список фильмов и вложенный список.
+# 1.6 Выведите список фильмов и вложенный список. ["Movie3", 2020, 8.6], ["Movie4", 2021, 7.9], ["Movie5", 2013, 8.5], ["Movie6", 2018, 8.6], ["Movie7", 2023, 7.0]]
 # print(movie_list)  #  "Movie1", "Movie2", "Movie3", "Movie4", "Movie5", "Movie6", "Movie7"
 # print(movie_details)  # Ожидаемый результат: [["Movie", 2002, 7.7], ["Movie1", 2010, 8.1], ["Updated Movie2", 2015, 7.5],
 # ["Movie3", 2020, 8.6], ["Movie4", 2021, 7.9], ["Movie5", 2013, 8.5], ["Movie6", 2018, 8.6], ["Movie7", 2023, 7.0]]
+movie_list = ["Movie1, Movie2, Movie3"]
+if "Movie4" not in movie_list:
+    movie_list.append("Movie4")
+if len(movie_list) > 2:
+    movie_list[1] = "Updated Movie2"
+if len(movie_list) < 5:
+    new_movies = ["Movie5", "Movie6", "Movie7"]
+    movie_list += new_movies
+
+    movie_details = ["Movie1", 2010, 8.1], ["Updated Movie2", 2015, 7.5],
+    ["Movie3", 2020, 8.6], ["Movie4", 2021, 7.9], ["Movie5", 2013, 8.5], ["Movie6", 2018, 8.6], ["Movie7", 2023, 7.0].
+
+    movie_details.insert(0, ["Movie", 2002, 7.7])
+
+    print(movie_list)
+    print(movie_details)
+
+
 
 
 # Упражнение 2: Анализ списка курсов и их продолжительности
-# 2.1 Создайте список курсов, содержащий элементы "Python", "Java", "JavaScript".
+# 2.1 Создайте список курсов, содержащий элементы ."Python", "Kotlin", "JavaScript",
 # 2.2 Добавьте в список курс "C++".
 # 2.3 Измените название второго курса на "Kotlin".
 # 2.4 Если первые три курса "Python", "Kotlin", "JavaScript", то создайте срез, содержащий первые три курса.
@@ -67,10 +106,26 @@
 # 2.8 Выведите в консоль:
 # - отсортированный список курсо, # Ожидаемый результат:['C++', 'JavaScript', 'Kotlin', 'Python']
 # - срез, # Ожидаемый результат: ['Python', 'Kotlin', 'JavaScript']
-# - вложенный список, # Ожидаемый результат: [['Python', 40], ['Kotlin', 30], ['JavaScript', 35], ['C++', 50]]
+# - вложенный список, # Ожидаемый результат: [['Python', 40], ['Kotlin', 30], ['JavaScript', 35], ['C++', 50]]"Python", "Kotlin", "JavaScript",
 # - общую продолжительность всех курсов. # Ожидаемый результат: 155
 
+courses = ["Python", "Java", "JavaScript"]
+courses.append("C++")
+courses [1] = "Kotlin"
+top_courses = courses[:3]
+sorted_coueses = sorted(courses)
+    course_details = [['Python', 40], ['Kotlin', 30], ['JavaScript', 35], ['C++', 50]]
+    total_hours = (course_details[0] [1] + course_details[1][1] + course_details[2][1] + course_details[3][1])
 
+    print("Отсортированний список курсов:")
+    print("top_courses")
+    print("sorted_courses")
+    print("course_details")
+    print("total_hours")
+
+
+
+#
 # Мини-проект: Система управления задачами (To-Do List)
 
 # Описание проекта:
@@ -82,6 +137,36 @@
 # задачу в список, где первым элементом идет номер задачи, вторым задача, а третьим статус ее выполнения.
 # При создании задачи статус всегда False. Список с задачей добавляется во вложенный список со всеми задачами tasks.
 
+ tasks =[]
+ task_text1 = input("Введите 1 задачу:")
+ if len(tasks) == 0:
+    task_id = 1
+new_task1 = [task_id, task_text1, False]
+tasks.append(new_task1)
+
+task_text2 = input("Введите 2 задачу:")
+task_id2 = tasks[-1][0] + 1
+new_task2 = [task_id2, task_text2, False]
+tasks.append(new_task2)
+
+done = int(input("Введите номер задачи для отметки  как виполненой :"))
+if tasks[0][0] ==done:
+    tasks[0][2] = True
+elif tasks[1][0] == done:
+print("Задача отмечена как виполненная")
+print("Некоректний номер задачи")
+
+
+delete = int(input("Введите номер задачи для удаления:"))
+if len(tasks) >= 1 and delete ==tasks[0][0]:
+del tasks[0]
+print("Задача удалена.")
+print("Некоректний номер задачи")
+print("Финальний список задач:")
+if len(tasks) == 0:
+    print("Список пуст.")
+
+
 # 2. Программа должна выводить список задач.
 
 # 3. Пользователь должен иметь возможность отметить задачу как выполненную. Для этого программа должна запросить у него
@@ -92,6 +177,7 @@
 # Если номер корректный, то удалите ее.
 
 # tasks = []
+
 #
 # while True:
 #     # В решении используется цикл, чтобы программа работала пока вы ее принудительно не завершите через Ctr-C.
@@ -104,4 +190,5 @@
 #     choice = input("Выберите действие, введя его номер: ")
 #
 #     # Продолжите программу ниже. Код пишите с отсутпом, как принты выше.
+
 
