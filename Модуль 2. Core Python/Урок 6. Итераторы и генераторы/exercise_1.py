@@ -7,6 +7,20 @@
 # - Форматируйте вывод так, чтобы таблица выглядела аккуратно.
 
 # Ожидаемый вывод программы:
+# for el in range(1,11):
+#     for el2 in range(1,11):
+#         print(f"{el * el2:4} ", end=" ")
+#     print()
+numbers=range(1,11)
+print("    ", end="")
+for i in numbers:
+    print(f"{i:3}", end=" ")
+print()
+print("-"* 44, end=" ")
+for row in numbers:
+    print(f"\n{row:2} |", end=" ")
+    for cell in numbers:
+        print(f"{row * cell:3}", end=" " )
 
 #      1   2   3   4   5   6   7   8   9  10
 # ---------------------------------------------
