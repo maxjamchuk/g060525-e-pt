@@ -53,7 +53,7 @@ print(students_grades)
 tasks = ["task1", "task2", "task3", "task4"]
 tasks[2] = "task3 updated"
 last_tasks = tasks[-2:]
-detailed_tasks = [tasks[0], True], [tasks[1],False], [tasks[2], True], [tasks[3], False]
+detailed_tasks = [tasks[0], True], [tasks[1], False], [tasks[2], True], [tasks[3], False]
 
 print("Список задач:", tasks)
 print("Cрез последних задач:", last_tasks)
@@ -114,14 +114,13 @@ courses.append("C++")
 courses [1] = "Kotlin"
 top_courses = courses[:3]
 sorted_coueses = sorted(courses)
-    course_details = [['Python', 40], ['Kotlin', 30], ['JavaScript', 35], ['C++', 50]]
-    total_hours = (course_details[0] [1] + course_details[1][1] + course_details[2][1] + course_details[3][1])
-
-    print("Отсортированний список курсов:")
-    print("top_courses")
-    print("sorted_courses")
-    print("course_details")
-    print("total_hours")
+course_details = [['Python', 40], ['Kotlin', 30], ['JavaScript', 35], ['C++', 50]]
+total_hours = (course_details[0] [1] + course_details[1][1] + course_details[2][1] + course_details[3][1])
+print("Отсортированний список курсов:")
+print("top_courses")
+print("sorted_courses")
+print("course_details")
+print("total_hours")
 
 
 
@@ -137,9 +136,9 @@ sorted_coueses = sorted(courses)
 # задачу в список, где первым элементом идет номер задачи, вторым задача, а третьим статус ее выполнения.
 # При создании задачи статус всегда False. Список с задачей добавляется во вложенный список со всеми задачами tasks.
 
- tasks =[]
- task_text1 = input("Введите 1 задачу:")
- if len(tasks) == 0:
+tasks =[]
+task_text1 = input("Введите 1 задачу:")
+if len(tasks) == 0:
     task_id = 1
 new_task1 = [task_id, task_text1, False]
 tasks.append(new_task1)
@@ -153,13 +152,13 @@ done = int(input("Введите номер задачи для отметки  
 if tasks[0][0] ==done:
     tasks[0][2] = True
 elif tasks[1][0] == done:
-print("Задача отмечена как виполненная")
-print("Некоректний номер задачи")
+    print("Задача отмечена как виполненная")
+    print("Некоректний номер задачи")
 
 
 delete = int(input("Введите номер задачи для удаления:"))
 if len(tasks) >= 1 and delete ==tasks[0][0]:
-del tasks[0]
+    del tasks[0]
 print("Задача удалена.")
 print("Некоректний номер задачи")
 print("Финальний список задач:")
