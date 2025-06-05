@@ -3,7 +3,10 @@
 # Измените элемент "milk" на "almond milk".
 # Создайте срез, содержащий первые два элемента списка.
 # Создайте вложенный список, где каждый элемент списка покупок будет содержать его цену.
-
+list = ["bread", "milk" ,"eggs"]
+list[1] = "almond milk"
+el_list = list[:2]
+d_list = ["bread",1.5]
 # Выведите список покупок, срез и вложенный список.
 # print(shopping_list)  # Ожидаемый результат: ["bread", "almond milk", "eggs"]
 # print(slice_shopping_list)  # Ожидаемый результат: ["bread", "almond milk"]
@@ -20,7 +23,10 @@
 # print(students)  # Ожидаемый результат: ["Alice", "Eve", "Charlie", "David"]
 # print(top_students)  # Ожидаемый результат: ["Bob", "Charlie"]
 # print(student_grades)  # Ожидаемый результат: [["Alice", [90, 85, 88]], ["Eve", [75, 80, 82]], ["Charlie", [95, 92, 93]], ["David", [78, 85, 84]]]
-
+students = ["Alice", "Bob", "Charlie", "David"]
+students[1] = "Eva"
+p_students = students[1:3]
+student_a = ["Alice", 190,85, 88],["Eve", 175, 80, 82], ["Charlie", 160,78, 75], ["David", 170, 90, 85]
 
 
 # Упражнение 3: Управление списком задач
