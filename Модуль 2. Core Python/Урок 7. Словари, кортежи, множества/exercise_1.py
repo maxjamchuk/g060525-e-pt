@@ -16,6 +16,17 @@ employees = {
     "Bob": {"age": 25, "department": "IT", "salary": 6000},
     "Charlie": {"age": 35, "department": "Finance", "salary": 7000}
 }
+print(employees.keys())
+total_salary=sum(emp["salary"] for emp in employees.values())
+print(total_salary)
+employees["David"]= {"age":28, "department": "IT", "salary": 6500}
+print(employees)
+employees["Alice"]["salary"] = 5500
+print(employees)
+employees.pop("Charlie")
+print(employees)
+for name, info in employees.items():
+    print(f"Имя: {name}, Возраст: {info["age"]}, Отдел: {info["department"]}, Зарплата: {info["salary"]}")
 # Задача 2: Управление запасами товаров
 # У вас есть словарь, содержащий информацию о запасах товаров в магазине.
 # Необходимо провести различные операции с этими данными.
@@ -28,8 +39,23 @@ employees = {
 # 5. Добавьте новый товар "Dates" с количеством 15 и ценой 4.
 # 6. Выведите общую стоимость всех товаров (количество * цена для каждого товара и сумма этих значений).
 #
-# inventory = {
-#     "Apples": {"quantity": 50, "price": 2},
-#     "Bananas": {"quantity": 30, "price": 1},
-#     "Cherries": {"quantity": 20, "price": 3},
-# }
+inventory = {
+    "Apples": {"quantity": 50, "price": 2},
+    "Bananas": {"quantity": 30, "price": 1},
+    "Cherries": {"quantity": 20, "price": 3},
+}
+for name in inventory:
+    print(f"Название товаров: {name}")
+inventory["Apples"]["quantity"]+=10
+print(inventory)
+inventory["Bananas"]["price"]+=1.5
+print(inventory)
+inventory.pop("Cherries")
+print(inventory)
+inventory["Dates"]={"quantity": 15, "price": 4}
+print(inventory)
+total_cost=0
+for i,c in inventory.items():
+    product_cost=c["quantity"]*c["price"]
+    total_cost+=product_cost
+print(total_cost)
