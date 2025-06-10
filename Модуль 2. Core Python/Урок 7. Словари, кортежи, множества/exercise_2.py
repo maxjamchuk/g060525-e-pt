@@ -1,11 +1,7 @@
 # Задача 1: Обработка данных о координатах
 # У вас есть список координат, каждая из которых представлена кортежем (x, y).
 # Необходимо провести различные операции с этими данными.
-from tkinter.font import names
-
-coordinates=[(40,50), (30,50), (40,75)]
-for x, y in coordinates:
-    print(f"Координата Х = {x},Координата Y = {y} ")
+#
 # Задание:
 # 1. Выведите все координаты.
 # 2. Найдите сумму всех координат по оси x и по оси y.
@@ -13,16 +9,7 @@ for x, y in coordinates:
 # 4. Замените первую координату на (15, 25).
 # 5. Выведите все координаты, отсортированные по оси x.
 #
-sum_x=sum(x for x, y in coordinates)
-sum_y=sum(y for x, y in coordinates)
-print(sum_x)
-print(sum_y)
-coordinates.append((70, 80))
-print(coordinates)
-coordinates[0]=(15, 25)
-print(coordinates)
-sorted_coordinates=sorted(coordinates)
-print(sorted_coordinates)
+
 # Задача 2: Обработка данных о продуктах
 # У вас есть список продуктов, каждый из которых представлен кортежем (название, цена).
 # Необходимо провести различные операции с этими данными.
@@ -34,17 +21,9 @@ print(sorted_coordinates)
 # 4. Замените цену "Apple" на 2.5.
 # 5. Выведите все продукты, отсортированные по цене.
 #
-products = [("Apple", 2), ("Banana", 1), ("Cherry", 3)]
-for x,y in products:
-    print(f"Продукты: {x}")
-total=0
-for x, y in products:
-    total+=y
-print(f"Сумма всех продуктов: {total}")
-products.append(("Date", 4))
-print(products)
-products[0] = "Apple", 2.5
-print(products)
+# products = [("Apple", 2), ("Banana", 1), ("Cherry", 3)]
+
+
 # Задача 3: Управление группами пользователей
 # У вас есть множество пользователей, и вам необходимо выполнить различные операции с этими данными.
 #
@@ -55,18 +34,9 @@ print(products)
 # 4. Проверьте, есть ли пользователь "Alice" в множестве.
 # 5. Выведите количество пользователей.
 #
-users = {"Alice", "Bob", "Charlie"}
-for x in users:
-    print(f"Name: {x}")
-users.add("David")
-print(users)
-users.remove("Bob")
-print(users)
-if "Alice" in users:
-    print("Искомое найдено!")
-else:
-    print("Искомое не найдено!")
-print(len(users))
+# users = {"Alice", "Bob", "Charlie"}
+
+
 # Задача 4: Управление наборами данных
 # У вас есть два множества, представляющих различные наборы данных.
 # Необходимо провести различные операции с этими множествами.
@@ -78,17 +48,5 @@ print(len(users))
 # 4. Найдите разность множеств `set1` и `set2`.
 # 5. Проверьте, является ли `set2` подмножеством `set1`.
 #
-set1 = {1, 2, 3, 4, 5}
-set2 = {4, 5, 6, 7, 8}
-for el in set1:
-    print(f"Элементы множества номер один: {el}")
-for el1 in set2:
-    print(f"Элементы множества номер два: {el1}")
-sum_sets= set1|set2
-print(sum_sets)
-cross_sets=set1&set2
-print(cross_sets)
-diff_sets=set1-set2
-print(diff_sets)
-print(set2 <= set1)
-
+# set1 = {1, 2, 3, 4, 5}
+# set2 = {4, 5, 6, 7, 8}
