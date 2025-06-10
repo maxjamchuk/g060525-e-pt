@@ -9,7 +9,24 @@
 # 4. Замените первую координату на (15, 25).
 # 5. Выведите все координаты, отсортированные по оси x.
 #
+coordinates= [(10, 100), (30,90), (50, 80), (70, 60), (90,20)]
 
+print("Мои геопозиции:\n")
+for x, y in coordinates:
+    print (f"({x},{y})")
+
+sum_x=  sum (x for x,y in coordinates)
+sum_y=  sum (y for x,y in coordinates)
+print(f"\n сумма всех координат по оси Х: {sum_x} и по оси У: {sum_y} а вот по оси Й нет...")
+
+coordinates.append((70, 80))
+
+coordinates[0]=(15, 25)
+
+sorted_coords = sorted(coordinates, key=lambda t: t[0])
+for x, y in sorted_coords:
+    print (f"({x},{y})")
+# print(sorted_coords)
 # Задача 2: Обработка данных о продуктах
 # У вас есть список продуктов, каждый из которых представлен кортежем (название, цена).
 # Необходимо провести различные операции с этими данными.
@@ -21,20 +38,41 @@
 # 4. Замените цену "Apple" на 2.5.
 # 5. Выведите все продукты, отсортированные по цене.
 #
-# products = [("Apple", 2), ("Banana", 1), ("Cherry", 3)]
+products = [("Apple", 2), ("Banana", 1), ("Chicken", 100), ("Cherry", 3)]
+print ("Продукты: ")
+for name, price in products:
+    print (f"({name}: {price})")
 
+total = sum(price for _, price in products)
+print(f"\n Суммарная стоимость всех продуктов: {total}")
+
+products.append(("Date", 4))
+
+products[0]=("Apple", 2.5)
+#print(products)
+# *****  &&&&& &&&&&9(((())))
+
+sorted_items=sorted(products, key=lambda t: t[1])
+print("Отсортированные продукты")
+for name, price in sorted_items:
+    print (f"({name}: {price})")
 
 # Задача 3: Управление группами пользователей
 # У вас есть множество пользователей, и вам необходимо выполнить различные операции с этими данными.
 #
+users = {"Alice", "Bob", "Charlie"}
 # Задание:
 # 1. Выведите всех пользователей.
+print(f"Пользователи: ", users)
 # 2. Добавьте нового пользователя "David".
+users.add("David")
 # 3. Удалите пользователя "Bob".
+users.discard("Bob")
 # 4. Проверьте, есть ли пользователь "Alice" в множестве.
+print("Есть ли Алиса в множестве? ", "Alice" in users)
 # 5. Выведите количество пользователей.
+print("Общая длинна множества: ", len(users))
 #
-# users = {"Alice", "Bob", "Charlie"}
 
 
 # Задача 4: Управление наборами данных
