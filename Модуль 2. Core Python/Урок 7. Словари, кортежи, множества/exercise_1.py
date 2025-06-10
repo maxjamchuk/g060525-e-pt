@@ -16,6 +16,7 @@ employees = {
     "Bob": {"age": 25, "department": "IT", "salary": 6000},
     "Charlie": {"age": 35, "department": "Finance", "salary": 7000}
 }
+employees["Alex"] = {"age": 40, "department": "Marketing", "salary": 8000}
 # Задача 2: Управление запасами товаров
 # У вас есть словарь, содержащий информацию о запасах товаров в магазине.
 # Необходимо провести различные операции с этими данными.
