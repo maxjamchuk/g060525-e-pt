@@ -22,7 +22,13 @@ inventory = [
     {'product': "Monitor", 'price': 20, 'count': 10}
 ]
 
-
+def show_inventory(inventory):
+    if not inventory:
+        print("Инвентарь пуст.")
+        return
+    print("Список товаров:")
+    for item in inventory:
+        print(f"Товар: {item['product']}, Цена: {item['price']}, Количество: {item['count']}")
 
 while True:
     user_input = input(
@@ -35,4 +41,8 @@ while True:
         "7. Вывести список товаров меньше определенного количества.\n"
         "8. Выйти.\n"
     )
+    if user_input == "1":
+        show_inventory(inventory)
+    elif user_input == "2":
+        pass
 
