@@ -82,4 +82,5 @@
 # верните функцию trimmer, которая обрезает строку до заданной длины.
 # trim_to_3 = make_trimmer(3)
 # print(trim_to_3("Hello"))  # Вывод: Hel
-# print(trim_to_3("World"))  # Вывод: Wor
+# print(trim_to_3("World"))  # Вывод: Wordef count_characters(string):
+
