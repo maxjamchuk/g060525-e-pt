@@ -3,11 +3,16 @@
 # def greet(name):
 #     return f"Hello, {name}!"
 #
-#
+from new_modul import name_modul
+
+
+
 # # другой файл
 # import my_module
-# 
+print(name_modul.greet(name="Calc"))
+
 # print(my_module.greet("Alice"))
+print(name_modul.greet(name="Alica"))
 #
 # # Вывод: Hello, Alice!
 
