@@ -20,7 +20,7 @@ def hangman():
     guessed = ["*"] * len(random_word)
     max_mistake=6
     mistake=0
-    used_letters= set()
+    used_letters= []
     while "*" in guessed and mistake < max_mistake:
         print("Слово: ", "".join(guessed))
         user_input=input("Введите букву: ").lower()
@@ -30,7 +30,7 @@ def hangman():
         if user_input in used_letters:
             print("Вы уже вводили эту букву.")
             continue
-        used_letters.add(user_input)
+        used_letters.append(user_input)
         if user_input in random_word:
             for i in range(len(random_word)):
                 if random_word[i] == user_input:
