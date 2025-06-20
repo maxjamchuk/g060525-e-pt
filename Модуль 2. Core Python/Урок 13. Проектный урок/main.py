@@ -1,5 +1,9 @@
-import minesweeper as g6
+import guess_number as g1
+import rock_paper_scissors as g2
+import quiz_game as g3
+import hangman as g4
 import text_adventure as g5
+import minesweeper as g6
 
 
 # Проект Game Hub
@@ -22,11 +26,19 @@ def main():
         print("7. Выход")
         choice = input("Выберите игру (1-6): ")
 
-        if int(choice) == int(5):
+        if int(choice) == 1:
+            g1.start_game()
+        elif int(choice) == 2:
+            g2.start_game()
+        elif int(choice) == 3:
+            g3.start_game()
+        elif int(choice) == 4:
+            g4.start_game()
+        elif int(choice) == 5:
             g5.start_game()
-        elif int(choice) == int(6):
+        elif int(choice) == 6:
             g6.play_game()
-        elif int(choice) == int(7):
+        elif int(choice) == 7:
             break
         # допишите файл main.py в конце и протестируйте работоспособность всех игр.
 #
