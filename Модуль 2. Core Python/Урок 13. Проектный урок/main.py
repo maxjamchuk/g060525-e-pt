@@ -1,3 +1,7 @@
+import minesweeper as g6
+import text_adventure as g5
+
+
 # Проект Game Hub
 #
 # Вам необходимо создать консольный чат-бот Game Hub, где пользователю доступны шесть игр.
@@ -18,6 +22,12 @@ def main():
         print("7. Выход")
         choice = input("Выберите игру (1-6): ")
 
+        if int(choice) == int(5):
+            g5.start_game()
+        elif int(choice) == int(6):
+            g6.play_game()
+        elif int(choice) == int(7):
+            break
         # допишите файл main.py в конце и протестируйте работоспособность всех игр.
 #
 # Постарайтесь реализовать не только логику игры, но и обработать потенциальный ошибочный ввод пользователя.
@@ -37,3 +47,5 @@ def main():
 # 4. Виселица - hangman.py
 # 5. Текстовый квест - text_adventure.py
 # 6. Сапер - minesWeeper.py
+if __name__ == "__main__":
+    main()
