@@ -16,6 +16,27 @@ except:
     print('Произошла ошибка')
 print('Продолжение выполнение работы программы')
 
+# шаблон try/except/finally
+# try:
+#     file = open('ex.txt', 'r')
+#     content = file.read()
+# except FileNotFoundError:
+#     print('Файл не найден!')
+# finally:  # выполняется вне зависимости от того была ли перехвачена ошибка
+#     file.close()
+#
+
+# else
+try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Деление на ноль невозможно")
+else:  # выполняется только если ошибка не была перехвачена
+    print("Результат:", result)
+
+
+
+
 
 
 
