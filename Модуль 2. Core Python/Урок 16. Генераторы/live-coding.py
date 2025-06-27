@@ -120,8 +120,32 @@
 # - Чтение файлов построчно через генераторы
 # - Чтение файлов по частям через генераторы
 # - Фильтрацию с файлами через генераторы
+# def read_file(file_path):
+#     with open(file_path, 'r') as file:
+#         for line in file:
+#             yield line  # Возвращает одну строку за раз
+#
+# file_path = 'large_file.txt'
+# # Использование генератора
+# line_generator = read_file(file_path)
+#
+# for line in line_generator:
+#     print(line.strip())  # Выводит строку без пробелов в начале и конце
 
+# Пример 17
+def read_file(file_path, chunk_size=10):
+    with open(file_path, 'r') as file:
+        while True:
+            chunk = file.read(chunk_size)  # Читает часть файла
+            if not chunk:
+                break
+            yield chunk  # Возвращает часть файла
 
+file_path = 'large_file.txt'
+# Использование генератора
+chunk_generator = read_file(file_path)
 
+for chunk in chunk_generator:
+    print(chunk)  # Выводит часть файла
 
 
